@@ -9,14 +9,6 @@ local endPoint = mist.utils.makeVec2(CAP.getZone("WP_Gen_RB").point)
 local xPointer = firstPoint.x
 local yPointer = firstPoint.y
 
---[[
-local rowStart = 302213.90625
-local rowEnd = -371839.5625
-
-local colStart = -512213.90625
-local colEnd = 512770.0625
-]]
-
 local tableIdx = 1
 
 CAP.Waypoints[tableIdx] = {["x"] = xPointer, ["y"] = yPointer} -- Starting point (left top), input Vec2
@@ -37,8 +29,6 @@ while (xPointer > endPoint.x) do
     xPointer = xPointer - 38000
     yPointer = firstPoint.y
 end
-
--- Approx. 10 nm distance between each points.
 
 local function getWaypointIdx(x, y)
     for idx, point in pairs(CAP.Waypoints) do
