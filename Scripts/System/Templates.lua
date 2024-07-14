@@ -20,9 +20,9 @@ CAP.Zones = {}
 
 CAP.Zones.Airport = {["Airport_Minakh"] = 2, ["Airport_Hatay"] = 1, ["Airport_Gaziantep"] = 1, ["Airport_Sanliurfa"] = 1, ["Airport_Aleppo"] = 2}
 
-CAP.Zones.Airbase = {["Airbase_Incirlik"] = 1, ["Airbase_Kuweires"] = 2}
+CAP.Zones.Airbase = {["Airbase_Incirlik"] = 1, ["Airbase_Kuweires"] = 2, ["Airbase_Duhur"] = 2}
 
-CAP.Zones.MilitaryBase = {["MilitaryBase_BA53"] = 1, ["MilitaryBase_BA89"] = 1, ["MilitaryBase_DA88"] = 1}
+CAP.Zones.MilitaryBase = {["MilitaryBase_BA53"] = 1, ["MilitaryBase_BA89"] = 1, ["MilitaryBase_DA88"] = 1, ["MilitaryBase_CA20"] = 2}
 
 CAP.Zones.Factory = {["Factory_CB50"] = 1, ["Factory_CA04"] = 2}
 
