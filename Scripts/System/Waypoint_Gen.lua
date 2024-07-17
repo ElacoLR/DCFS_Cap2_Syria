@@ -3,6 +3,8 @@
 
 CAP.Waypoints = {}
 
+local distanceBetweenPoints = 38000 -- Adjust freely.
+
 local firstPoint = mist.utils.makeVec2(CAP.getZone("WP_Gen_LT").point)
 local endPoint = mist.utils.makeVec2(CAP.getZone("WP_Gen_RB").point)
 
@@ -19,14 +21,14 @@ CAP.WaypointsGraph:AddVertex(tableIdx)
 
 while (xPointer > endPoint.x) do
     while (yPointer < endPoint.y) do
-        yPointer = yPointer + 38000
+        yPointer = yPointer + distanceBetweenPoints
         tableIdx = tableIdx + 1
 
         CAP.Waypoints[tableIdx] = {["x"] = xPointer, ["y"] = yPointer}
         CAP.WaypointsGraph:AddVertex(tableIdx)
     end
     
-    xPointer = xPointer - 38000
+    xPointer = xPointer - distanceBetweenPoints
     yPointer = firstPoint.y
 end
 
@@ -42,14 +44,14 @@ end
 
 for idx, point in pairs(CAP.Waypoints) do
     local neighbors = {
-        {x = point.x + 38000, y = point.y}, -- Up
-        {x = point.x - 38000, y = point.y}, -- Down
-        {x = point.x, y = point.y + 38000}, -- Right
-        {x = point.x, y = point.y - 38000}, -- Left
-        {x = point.x + 38000, y = point.y + 38000}, -- Top Right
-        {x = point.x + 38000, y = point.y - 38000}, -- Top Left
-        {x = point.x - 38000, y = point.y + 38000}, -- Bottom Right
-        {x = point.x - 38000, y = point.y - 38000}, -- Bottom Left
+        {x = point.x + distanceBetweenPoints, y = point.y}, -- Up
+        {x = point.x - distanceBetweenPoints, y = point.y}, -- Down
+        {x = point.x, y = point.y + distanceBetweenPoints}, -- Right
+        {x = point.x, y = point.y - distanceBetweenPoints}, -- Left
+        {x = point.x + distanceBetweenPoints, y = point.y + distanceBetweenPoints}, -- Top Right
+        {x = point.x + distanceBetweenPoints, y = point.y - distanceBetweenPoints}, -- Top Left
+        {x = point.x - distanceBetweenPoints, y = point.y + distanceBetweenPoints}, -- Bottom Right
+        {x = point.x - distanceBetweenPoints, y = point.y - distanceBetweenPoints}, -- Bottom Left
     }
 
     for _, neighbor in ipairs(neighbors) do

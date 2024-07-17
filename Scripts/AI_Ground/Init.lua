@@ -2,6 +2,8 @@ CAP.aliveGroundGroups = {}
 
 CAP.aliveGroundGroups.Garrison = {}
 
+CAP.aliveGroundGroups.Assault = {}
+
 function CAP.initGround()
     for zoneType, tbl in pairs(CAP.Zones) do
         for zoneName, country in pairs(tbl) do
@@ -53,10 +55,12 @@ function CAP.initGround()
     trigger.action.activateGroup(Group.getByName("Syr_lSAM_Kuweires_1"))
     trigger.action.activateGroup(Group.getByName("Turk_lSAM_Incirlik_1"))
     trigger.action.activateGroup(Group.getByName("Turk_EWR_CB23"))
+    trigger.action.activateGroup(Group.getByName("Syr_EWR_DU06"))
     CAP.aliveGroundGroups.Garrison["Syr_lSAM_Duhur_1"] = 1
     CAP.aliveGroundGroups.Garrison["Syr_lSAM_Kuweires_1"] = 1
     CAP.aliveGroundGroups.Garrison["Turk_lSAM_Incirlik_1"] = 1
     CAP.aliveGroundGroups.Garrison["Turk_EWR_CB23"] = 1
+    CAP.aliveGroundGroups.Garrison["Syr_EWR_DU06"] = 1
     CAP.log("initGround complete.")
 end
 mist.scheduleFunction(CAP.initGround, {}, timer.getTime() + 5)
