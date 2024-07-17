@@ -1,4 +1,4 @@
-function CAP.spawnGround(groupType, country, zoneName)
+function CAP.spawnGround(groupType, country, zoneName, garrison)
     local vars = {}
     local spawnPoint
 
@@ -14,7 +14,11 @@ function CAP.spawnGround(groupType, country, zoneName)
 
     local spawnedGroup = mist.teleportToPoint(vars)
 
-    CAP.aliveGroundGroups[spawnedGroup["name"]] = 1
+    if garrison == true then
+        CAP.aliveGroundGroups.Garrison[spawnedGroup["name"]] = 1
+    else
+        CAP.aliveGroundGroups.Assault[spawnedGroup["name"]] = 1
+    end
 
     return spawnedGroup["name"]
 end
