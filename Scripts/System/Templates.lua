@@ -18,18 +18,24 @@ CAP.Zones = {}
 -- Ground zones : Value number decide which country occupies the zone.
 -- 1 : Turkey, 2 : Syria, 3 : ...
 
-CAP.Zones.Airport = {["Airport_Minakh"] = 2, ["Airport_Hatay"] = 1, ["Airport_Gaziantep"] = 1, ["Airport_Sanliurfa"] = 1, ["Airport_Aleppo"] = 2}
+CAP.Zones.Airport = {["Airport_Minakh"] = 2, ["Airport_Hatay"] = 1, ["Airport_Gaziantep"] = 1, ["Airport_Sanliurfa"] = 1, ["Airport_Aleppo"] = 2, ["Airport_Taftanaz"] = 2}
 
 CAP.Zones.Airbase = {["Airbase_Incirlik"] = 1, ["Airbase_Kuweires"] = 2, ["Airbase_Duhur"] = 2}
 
 CAP.Zones.MilitaryBase = {["MilitaryBase_BA53"] = 1, ["MilitaryBase_BA89"] = 1, ["MilitaryBase_DA88"] = 1, ["MilitaryBase_CA20"] = 2}
 
-CAP.Zones.Factory = {["Factory_CB50"] = 1, ["Factory_CA04"] = 2}
+CAP.Zones.Factory = {["Factory_CB50"] = 1, ["Factory_CA04"] = 2, ["Factory_DA64"] = 2, ["Factory_CA30"] = 2, ["Factory_CA40"] = 2}
 
-CAP.Zones.Outpost = {["Outpost_DB21"] = 1}
+CAP.Zones.Outpost = {["Outpost_DB21"] = 1, ["Outpost_BA81"] = 1, ["Outpost_BA97"] = 2, ["Outpost_BV47"] = 1, ["Outpost_YE68"] = 1, ["Outpost_DA04"] = 2}
 
 -- Airport : Mechanized, mAA
 -- Airbase : Armored, Mechanized, lAA
 -- MilitaryBase : Armored, Mechanized, mAA
 -- Factory : Motorized, sAA
 -- Outpost : Infantry
+
+CAP.Buildings = {}
+
+CAP.Buildings.Factory = {["Factory_CA04_1"] = 2, ["Factory_CA04_2"] = 2, ["Factory_CA04_3"] = 2, ["Factory_CA04_4"] = 2, ["Factory_CA30_1"] = 2, ["Factory_CA30_2"] = 2, 
+    ["Factory_CA30_3"] = 2, ["Factory_CA40_1"] = 2, ["Factory_CA40_2"] = 2, ["Factory_CA40_3"] = 2, ["Factory_CA40_4"] = 2, ["Factory_CB50_1"] = 1, ["Factory_CB50_2"] = 1, 
+    ["Factory_CB50_3"] = 1, ["Factory_CB50_4"] = 1}
