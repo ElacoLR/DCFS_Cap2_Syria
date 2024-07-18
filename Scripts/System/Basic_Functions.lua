@@ -80,6 +80,20 @@ function CAP.getDistance(p1, p2)
     return math.floor(math.sqrt(xDiff * xDiff + yDiff * yDiff) + 0.5)
 end
 
+function CAP.getKeysSortedByValue(tbl, sortFunction)
+    local keys = {}
+
+    for k in pairs(tbl) do
+        table.insert(keys, k)
+    end
+
+    table.sort(keys, function(a, b)
+        return sortFunction(tbl[a], tbl[b])
+    end)
+
+    return keys
+end
+
 function CAP.getAliveUnit(unitName)
     if unitName == nil then
         return nil
@@ -120,3 +134,39 @@ function CAP.getAliveGroup(groupName)
     end
 end
 
+function CAP.getAliveGroupLeader(groupName)
+    if groupName == nil then
+        return nil
+    end
+
+    local group = CAP.getAliveGroup(groupName)
+
+    if group ~= nil then
+        local groupUnits = Group.getUnits(group)
+
+        if #groupUnits > 0 then
+            local leaderExist = false
+            local leaderIter
+
+            for i = 1, #groupUnits do
+                local unit = groupUnits[i]
+
+                if unit ~= nil and unit:isActive() and unit:getLife() > 1.0 then
+                    leaderExist = true
+                    leaderIter = i
+                    break
+                end
+            end
+
+            if leaderExist == true then
+                return groupUnits[leaderIter]
+            else
+                return nil
+            end
+        else
+            return nil
+        end
+    else
+        return nil
+    end
+end

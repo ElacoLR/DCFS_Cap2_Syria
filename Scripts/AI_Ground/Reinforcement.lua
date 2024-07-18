@@ -22,7 +22,7 @@ end
 function CAP.doReinforce()
     local turkEco = CAP.Economy.Turkey
 
-    turkEco = math.floor(15000 / turkEco + 0.5)
+    turkEco = math.floor(1000 / turkEco + 0.5)
 
     CAP.msgToAll("Turk Eco : " .. tostring(turkEco), 5)
 

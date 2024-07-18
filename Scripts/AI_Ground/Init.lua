@@ -56,11 +56,13 @@ function CAP.initGround()
     trigger.action.activateGroup(Group.getByName("Turk_lSAM_Incirlik_1"))
     trigger.action.activateGroup(Group.getByName("Turk_EWR_CB23"))
     trigger.action.activateGroup(Group.getByName("Syr_EWR_DU06"))
+    trigger.action.activateGroup(Group.getByName("Syr_lSAM_Jirah_1"))
     CAP.aliveGroundGroups.Garrison["Syr_lSAM_Duhur_1"] = 1
     CAP.aliveGroundGroups.Garrison["Syr_lSAM_Kuweires_1"] = 1
     CAP.aliveGroundGroups.Garrison["Turk_lSAM_Incirlik_1"] = 1
     CAP.aliveGroundGroups.Garrison["Turk_EWR_CB23"] = 1
     CAP.aliveGroundGroups.Garrison["Syr_EWR_DU06"] = 1
+    CAP.aliveGroundGroups.Garrison["Syr_lSAM_Jirah_1"] = 1
     CAP.log("initGround complete.")
 end
 mist.scheduleFunction(CAP.initGround, {}, timer.getTime() + 5)

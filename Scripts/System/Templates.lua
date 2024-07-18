@@ -27,10 +27,11 @@ CAP.Zones.Airport = {["Airport_Minakh"] = 2, ["Airport_Hatay"] = 1, ["Airport_Ga
 
 CAP.Zones.Airbase = {["Airbase_Incirlik"] = 1, ["Airbase_Kuweires"] = 2, ["Airbase_Duhur"] = 2}
 
-CAP.Zones.MilitaryBase = {["MilitaryBase_BA53"] = 1, ["MilitaryBase_BA89"] = 1, ["MilitaryBase_DA88"] = 1, ["MilitaryBase_CA20"] = 2, ["MilitaryBase_CA63"] = 2}
+CAP.Zones.MilitaryBase = {["MilitaryBase_BA53"] = 1, ["MilitaryBase_BA89"] = 1, ["MilitaryBase_DA88"] = 1, ["MilitaryBase_CA20"] = 2, ["MilitaryBase_CA63"] = 2, 
+    ["MilitaryBase_DA40"] = 2}
 
 CAP.Zones.Factory = {["Factory_CB50"] = 1, ["Factory_YF60"] = 1, ["Factory_CB51"] = 1, ["Factory_CA04"] = 2, ["Factory_DA64"] = 2, ["Factory_CA30"] = 2, ["Factory_CA40"] = 2, 
-    ["Factory_BA56"] = 1}
+    ["Factory_BA56"] = 1, ["Factory_DA91"] = 2}
 
 CAP.Zones.Outpost = {["Outpost_DB21"] = 1, ["Outpost_BA81"] = 1, ["Outpost_BA97"] = 2, ["Outpost_BV47"] = 1, ["Outpost_YE68"] = 1, ["Outpost_DA04"] = 2, ["Outpost_BV79"] = 2}
 
@@ -46,4 +47,5 @@ CAP.Buildings.Factory = {["Factory_CA04_1"] = 2, ["Factory_CA04_2"] = 2, ["Facto
     ["Factory_CA30_3"] = 2, ["Factory_CA40_1"] = 2, ["Factory_CA40_2"] = 2, ["Factory_CA40_3"] = 2, ["Factory_CA40_4"] = 2, ["Factory_CB50_1"] = 1, ["Factory_CB50_2"] = 1, 
     ["Factory_CB50_3"] = 1, ["Factory_CB50_4"] = 1, ["Factory_CB51_1"] = 1, ["Factory_CB51_2"] = 1, ["Factory_CB51_3"] = 1, ["Factory_CB51_4"] = 1, ["Factory_CB51_5"] = 1, 
     ["Factory_CB51_6"] = 1, ["Factory_YF60_1"] = 1, ["Factory_YF60_2"] = 1, ["Factory_YF60_3"] = 1, ["Factory_BA56_1"] = 1, ["Factory_BA56_2"] = 1, ["Factory_BA56_3"] = 1, 
-    ["Factory_BA56_4"] = 1, ["Factory_BA56_5"] = 1, ["Factory_BA56_6"] = 1, ["Factory_BA56_7"] = 1}
+    ["Factory_BA56_4"] = 1, ["Factory_BA56_5"] = 1, ["Factory_BA56_6"] = 1, ["Factory_BA56_7"] = 1, ["Factory_DA91_1"] = 2, ["Factory_DA91_2"] = 2, ["Factory_DA91_3"] = 2, 
+    }

@@ -30,4 +30,4 @@ for factoryName in pairs(CAP.Buildings.Factory) do
 end
 ]]
 
-
+CAP.newCommand()
