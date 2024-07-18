@@ -16,11 +16,16 @@ function CAP.groundReinforce(country)
     local spawnZone = militaryBases[math.random(1, #militaryBases)]
     CAP.spawnGround('Assault', country, spawnZone, false)
 
-    CAP.msgToAll("Reinforced country : " .. country, 5)
-
     CAP.doReinforce()
 end
 
 function CAP.doReinforce()
+    local turkEco = CAP.Economy.Turkey
 
+    turkEco = math.floor(15000 / turkEco + 0.5)
+
+    CAP.msgToAll("Turk Eco : " .. tostring(turkEco), 5)
+
+    mist.scheduleFunction(CAP.groundReinforce, {'Turkey'}, timer.getTime() + turkEco)
 end
+mist.scheduleFunction(CAP.doReinforce, {}, timer.getTime() + 10)

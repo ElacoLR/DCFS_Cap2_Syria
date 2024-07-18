@@ -1,3 +1,5 @@
+CAP.Ground = {}
+
 function CAP.spawnGround(groupType, country, zoneName, garrison)
     local vars = {}
     local spawnPoint
@@ -21,4 +23,96 @@ function CAP.spawnGround(groupType, country, zoneName, garrison)
     end
 
     return spawnedGroup["name"]
+end
+
+function CAP.Ground.Go(groupObject, destination) -- If destination is nil then stop at its current position.
+    local controller = groupObject:getController()
+
+    controller:resetTask()
+
+    if destination ~= nil then
+        -- Build WP --
+        -- First point is its own position, Second point is some offset from the first point (No idea why this is needed.)
+        -- Third point is its own position but 'on road'
+        -- Fourth point is the destination's point but 'on road'
+        -- Fifth point is the destination's point
+        -- These are all needed for the vehicle to move correctly in 'on road' formation.
+        
+        local mission = {}
+
+        do
+            local vec2DestPoint = mist.utils.makeVec2(trigger.misc.getZone(destination).point)
+            local vec2Veh = groupObject:getUnits()[1]
+            local vec2VehPoint = mist.utils.makeVec2(vec2Veh:getPosition().p)
+
+            mission = {
+                id = 'Mission',
+                params = {
+                    route = {
+                        points = {
+                            [1] = {
+                                action = AI.Task.VehicleFormation.OFF_ROAD,
+                                x = vec2VehPoint.x,
+                                y = vec2VehPoint.y,
+                                speed = 100,
+                            },
+                            [2] = {
+                                action = AI.Task.VehicleFormation.OFF_ROAD,
+                                x = vec2VehPoint.x + 11,
+                                y = vec2VehPoint.y + 11,
+                                speed = 100,
+                            },
+                            [3] = {
+                                action = AI.Task.VehicleFormation.ON_ROAD,
+                                x = vec2VehPoint.x,
+                                y = vec2VehPoint.y,
+                                speed = 100,
+                            },
+                            [4] = {
+                                action = AI.Task.VehicleFormation.ON_ROAD,
+                                x = vec2DestPoint.x,
+                                y = vec2DestPoint.y,
+                                speed = 100,
+                            },
+                            [5] = {
+                                action = AI.Task.VehicleFormation.OFF_ROAD,
+                                x = vec2DestPoint.x,
+                                y = vec2DestPoint.y,
+                                speed = 100,
+                            }
+                        }
+                    }
+                }
+            }
+        end
+
+        -- Build WP Finish --
+
+        controller:setTask(mission)
+    else
+        local mission = {}
+
+        do
+            local vec2Veh = groupObject:getUnits()[1]
+            local vec2VehPoint = mist.utils.makeVec2(vec2Veh:getPosition().p)
+
+            mission = {
+                id = 'Mission',
+                params = {
+                    route = {
+                        points = {
+                            [1] = {
+                                action = AI.Task.VehicleFormation.OFF_ROAD,
+                                x = vec2VehPoint.x,
+                                y = vec2VehPoint.y,
+                                speed = 100,
+                            },
+                        }
+                    }
+                }
+            }
+        end
+
+        controller:setTask(mission)
+    end
 end

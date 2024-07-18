@@ -32,7 +32,7 @@ CAP.Zones.MilitaryBase = {["MilitaryBase_BA53"] = 1, ["MilitaryBase_BA89"] = 1, 
 CAP.Zones.Factory = {["Factory_CB50"] = 1, ["Factory_YF60"] = 1, ["Factory_CB51"] = 1, ["Factory_CA04"] = 2, ["Factory_DA64"] = 2, ["Factory_CA30"] = 2, ["Factory_CA40"] = 2, 
     ["Factory_BA56"] = 1}
 
-CAP.Zones.Outpost = {["Outpost_DB21"] = 1, ["Outpost_BA81"] = 1, ["Outpost_BA97"] = 2, ["Outpost_BV47"] = 1, ["Outpost_YE68"] = 1, ["Outpost_DA04"] = 2}
+CAP.Zones.Outpost = {["Outpost_DB21"] = 1, ["Outpost_BA81"] = 1, ["Outpost_BA97"] = 2, ["Outpost_BV47"] = 1, ["Outpost_YE68"] = 1, ["Outpost_DA04"] = 2, ["Outpost_BV79"] = 2}
 
 -- Airport : Mechanized, mAA
 -- Airbase : Armored, Mechanized, lAA

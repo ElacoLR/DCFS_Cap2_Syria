@@ -79,3 +79,44 @@ function CAP.getDistance(p1, p2)
 
     return math.floor(math.sqrt(xDiff * xDiff + yDiff * yDiff) + 0.5)
 end
+
+function CAP.getAliveUnit(unitName)
+    if unitName == nil then
+        return nil
+    end
+
+    local unit = Unit.getByName(unitName)
+
+    if unit ~= nil and unit:isActive() and unit:getLife() > 1.0 then
+        return unit
+    end
+    
+    return nil
+end
+
+function CAP.getAliveGroup(groupName)
+    if groupName == nil then
+        return nil
+    end
+
+    local group = Group.getByName(groupName)
+
+    if group ~= nil then
+        local groupUnits = Group.getUnits(group)
+
+        if #groupUnits > 0 then
+            for i = 1, #groupUnits do
+                local unit = groupUnits[i]
+
+                if unit ~= nil and unit:isActive() and unit:getLife() > 1.0 then
+                    return group
+                end
+            end
+        else
+            return nil
+        end
+    else
+        return nil
+    end
+end
+
