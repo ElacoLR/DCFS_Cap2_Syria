@@ -14,6 +14,14 @@ CAP.Package = {}
 CAP.Package.Air = {}
 CAP.Package.Ground = {}
 
+function CAP.refreshPackage()
+    for k, v in pairs(CAP.Package.Ground) do
+        if CAP.getAliveGroup(v.groupName) == nil then -- The group is dead.
+            CAP.Package.Ground[k] = nil
+        end
+    end
+end
+
 function CAP.searchGroundPackage(groupName, targetZone)
     for k, v in pairs(CAP.Package.Ground) do
         if targetZone ~= nil and v.targetZone == targetZone then

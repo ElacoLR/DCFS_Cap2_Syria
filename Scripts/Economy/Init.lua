@@ -27,9 +27,9 @@ function CAP.checkEconomy()
         local objTbl = {["id_"] = objID,}
 
         if Object.isExist(objTbl) then
-            if country == 1 then
+            if country == 3 then
                 CAP.Economy.Turkey = CAP.Economy.Turkey + 1
-            elseif country == 2 then
+            elseif country == 47 then
                 CAP.Economy.Syria = CAP.Economy.Syria + 1
             end
         end

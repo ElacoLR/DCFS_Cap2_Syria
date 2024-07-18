@@ -4,7 +4,7 @@ dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\System\]] .. "Basic_Function
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\System\]] .. "Waypoint_Gen.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\System\]] .. "Templates.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\Economy\]] .. "Init.lua")
-dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\Zones\]] .. "Init.lua")
+dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\Zones\]] .. "Occupation.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\]] .. "Package_Management.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Ground\]] .. "Ground_Functions.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Ground\]] .. "Init.lua")

@@ -30,4 +30,6 @@ for factoryName in pairs(CAP.Buildings.Factory) do
 end
 ]]
 
+-- CAP.groundReinforce('Turkey')
+
 CAP.newCommand()

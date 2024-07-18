@@ -170,3 +170,75 @@ function CAP.getAliveGroupLeader(groupName)
         return nil
     end
 end
+
+function CAP.getGroupsInZone(unit_names, zone_names, zone_type)
+    zone_type = zone_type or 'cylinder'
+    if zone_type == 'c' or zone_type == 'cylindrical' or zone_type == 'C' then
+        zone_type = 'cylinder'
+    end
+    if zone_type == 's' or zone_type == 'spherical' or zone_type == 'S' then
+        zone_type = 'sphere'
+    end
+
+    assert(zone_type == 'cylinder' or zone_type == 'sphere', 'invalid zone_type: ' .. tostring(zone_type))
+
+    local groups = {}
+    local groups_idx = {}
+    local zones = {}
+
+    if zone_names and type(zone_names) == 'string' then
+        zone_names = {zone_names}
+    end
+
+    for k = 1, #unit_names do
+        if CAP.getAliveUnit(unit_names[k]) then
+            local group = CAP.getAliveUnit(unit_names[k]):getGroup()
+            if CAP.getAliveGroup(group:getName()) and not groups[group:getName()] then
+                groups[group:getName()] = true
+                table.insert(groups_idx, group:getName())
+            end
+        end
+    end
+
+    for k = 1, #zone_names do
+        local zone = mist.DBs.zonesByName[zone_names[k]]
+        if zone then
+            zones[#zones + 1] = {radius = zone.radius, x = zone.point.x, y = zone.point.y, z = zone.point.z, verts = zone.verticles}
+        end
+    end
+
+    local in_zone_groups = {}
+
+    for groups_ind = 1, #groups_idx do
+        local lUnit = CAP.getAliveGroupLeader(groups_idx[groups_ind])
+        local unit_pos = lUnit:getPosition().p
+        local lCat = lUnit:getCategory()
+
+        for zones_ind = 1, #zones do
+            if zone_type == 'sphere' then
+                local alt = land.getHeight({x = zones[zones_ind].x, y = zones[zones_ind].z})
+                if alt then
+                    zones[zones_ind].y = alt
+                end
+            end
+
+            if unit_pos and ((lCat == 1 and lUnit:isActive() == true) or lCat ~= 1) then
+                if zones[zones_ind].verts then
+                    if mist.pointInPolygon(unit_pos, zones[zones_ind].verts) then
+                        in_zone_groups[#in_zone_groups + 1] = lUnit:getGroup()
+                    end
+                else
+                    if zone_type == 'cylinder' and (((unit_pos.x - zones[zones_ind].x)^2 + (unit_pos.z - zones[zones_ind].z)^2)^0.5 <= zones[zones_ind].radius) then
+                        in_zone_groups[#in_zone_groups + 1] = lUnit:getGroup()
+                        break
+                    elseif zone_type == 'sphere' and (((unit_pos.x - zones[zones_ind].x)^2 + (unit_pos.y - zones[zones_ind].y)^2 + (unit_pos.z - zones[zones_ind].z)^2)^0.5 <= zones[zones_ind].radius) then
+                        in_zone_groups[#in_zone_groups + 1] = lUnit:getGroup()
+                        break
+                    end
+                end
+            end
+        end
+    end
+
+    return in_zone_groups
+end

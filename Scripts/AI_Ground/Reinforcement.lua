@@ -6,9 +6,9 @@ function CAP.groundReinforce(country)
     local militaryBases = {}
 
     for k, v in pairs(CAP.Zones.MilitaryBase) do
-        if country == 'Turkey' and v == 1 then
+        if country == 'Turkey' and v == 3 then
             table.insert(militaryBases, k)
-        elseif country == 'Syria' and v == 2 then
+        elseif country == 'Syria' and v == 47 then
             table.insert(militaryBases, k)
         end
     end
@@ -22,7 +22,7 @@ end
 function CAP.doReinforce()
     local turkEco = CAP.Economy.Turkey
 
-    turkEco = math.floor(1000 / turkEco + 0.5)
+    turkEco = math.floor(15000 / turkEco + 0.5)
 
     CAP.msgToAll("Turk Eco : " .. tostring(turkEco), 5)
 
