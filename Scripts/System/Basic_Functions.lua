@@ -16,6 +16,16 @@ function string:split(delimiter)
     return result
 end
 
+function CAP.getTableSize(tbl)
+    local size = 0
+
+    for k, v in pairs(tbl) do
+        size = size + 1
+    end
+
+    return size
+end
+
 function CAP.log(log)
     env.info("DCFS_CAP2_Syria LOG : " .. log)
 end
@@ -134,12 +144,16 @@ function CAP.getAliveGroup(groupName)
     end
 end
 
-function CAP.getAliveGroupLeader(groupName)
-    if groupName == nil then
+function CAP.getAliveGroupLeader(g)
+    if g == nil then
         return nil
     end
 
-    local group = CAP.getAliveGroup(groupName)
+    local group = g
+
+    if type(g) == 'string' then
+        group = CAP.getAliveGroup(g)
+    end
 
     if group ~= nil then
         local groupUnits = Group.getUnits(group)

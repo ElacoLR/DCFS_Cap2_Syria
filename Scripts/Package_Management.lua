@@ -16,11 +16,19 @@ CAP.Package.Ground = {}
 
 function CAP.refreshPackage()
     for k, v in pairs(CAP.Package.Ground) do
-        if CAP.getAliveGroup(v.groupName) == nil then -- The group is dead.
+        local packGroup = CAP.getAliveGroup(v.groupName)
+        local packGroupL = CAP.getAliveGroupLeader(packGroup)
+
+        if packGroup == nil then -- The group is dead.
+            CAP.Package.Ground[k] = nil
+        end
+
+        if CAP.getFlag(v.targetZone .. "_country") == tonumber(packGroupL:getCountry()) then
             CAP.Package.Ground[k] = nil
         end
     end
 end
+mist.scheduleFunction(CAP.refreshPackage, {}, timer.getTime() + 5, 600)
 
 function CAP.searchGroundPackage(groupName, targetZone)
     for k, v in pairs(CAP.Package.Ground) do

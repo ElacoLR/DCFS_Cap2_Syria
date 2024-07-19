@@ -21,11 +21,12 @@ end
 
 function CAP.doReinforce()
     local turkEco = CAP.Economy.Turkey
+    local syrEco = CAP.Economy.Syria
 
     turkEco = math.floor(15000 / turkEco + 0.5)
-
-    CAP.msgToAll("Turk Eco : " .. tostring(turkEco), 5)
+    syrEco = math.floor(15000 / syrEco + 0.5)
 
     mist.scheduleFunction(CAP.groundReinforce, {'Turkey'}, timer.getTime() + turkEco)
+    mist.scheduleFunction(CAP.groundReinforce, {'Syria'}, timer.getTime() + syrEco)
 end
 mist.scheduleFunction(CAP.doReinforce, {}, timer.getTime() + 10)

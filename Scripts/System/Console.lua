@@ -31,5 +31,3 @@ end
 ]]
 
 -- CAP.groundReinforce('Turkey')
-
-CAP.newCommand()
