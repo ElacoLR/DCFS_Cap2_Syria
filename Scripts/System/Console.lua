@@ -31,3 +31,5 @@ end
 ]]
 
 -- CAP.groundReinforce('Turkey')
+
+CAP.msgToAll(tostring(CAP.getFlag('Outpost_BA97_country')), 5)

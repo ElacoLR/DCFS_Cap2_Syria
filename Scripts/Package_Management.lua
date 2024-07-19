@@ -33,15 +33,15 @@ mist.scheduleFunction(CAP.refreshPackage, {}, timer.getTime() + 5, 600)
 function CAP.searchGroundPackage(groupName, targetZone)
     for k, v in pairs(CAP.Package.Ground) do
         if targetZone ~= nil and v.targetZone == targetZone then
-            return true
+            return v.groupName
         end
 
         if groupName ~= nil and v.groupName == groupName then
-            return true
+            return v.targetZone
         end
     end
 
-    return false
+    return nil
 end
 
 function CAP.createGroundPackage(groupName, targetZone)

@@ -5,7 +5,7 @@
 
 function CAP.newCommand()
     for groupName, _ in pairs(CAP.aliveGroundGroups.Assault) do
-        if CAP.searchGroundPackage(groupName, nil) == false then
+        if CAP.searchGroundPackage(groupName, nil) == nil then
             local coal = CAP.getAliveGroup(groupName):getCoalition()
 
             local targetZones = {}
@@ -23,18 +23,18 @@ function CAP.newCommand()
                 end
             end
 
-            CAP.msgToAll(tostring(#targetZones), 1)
-
             local sortedDests = CAP.getKeysSortedByValue(targetZones, function(a, b) return a < b end)
 
-            CAP.msgToAll(tostring(#sortedDests), 1)
-
             for _, key in pairs(sortedDests) do
-                if CAP.searchGroundPackage(nil, key) == false then
+                if CAP.searchGroundPackage(nil, key) == nil then
                     CAP.Ground.Go(group, key)
                     CAP.createGroundPackage(groupName, key)
                     break
                 end
+            end
+        else
+            if CAP.isInZone(CAP.getAliveGroupLeader(groupName), CAP.searchGroundPackage(groupName, nil)) == true then
+                CAP.Ground.clearZone(groupName, CAP.searchGroundPackage(groupName, nil))
             end
         end
     end

@@ -2,7 +2,13 @@ CAP.Template = {}
 
 CAP.Template.Air = {}
 
-CAP.Template.Air.Turkey = {}
+CAP.Template.Air.Turkey = {"Template_Turkey_AWACS", "Template_Turkey_CAP", "Template_Turkey_SEAD", "Template_Turkey_STRIKE"}
+
+CAP.Template.Air.Turkey.AWACS = {"Template_Turkey_AWACS_Incirlik"}
+CAP.Template.Air.Turkey.CAP = {"Template_Turkey_CAP_Incirlik"}
+CAP.Template.Air.Turkey.SEAD = {"Template_Turkey_SEAD_Incirlik"}
+CAP.Template.Air.Turkey.STRIKE = {"Template_Turkey_STRIKE_Incirlik"}
+
 CAP.Template.Air.Syria = {}
 
 CAP.Template.Ground = {}

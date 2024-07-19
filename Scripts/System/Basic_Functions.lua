@@ -256,3 +256,23 @@ function CAP.getGroupsInZone(unit_names, zone_names, zone_type)
 
     return in_zone_groups
 end
+
+function CAP.isInZone(unit, zoneName) -- assume that zone is circle.
+    local unitObject = unit
+
+    if type(unitObject) == 'string' then
+        unitObject = CAP.getAliveUnit(unit)
+    end
+
+    local unitPoint = mist.utils.makeVec2(unitObject:getPosition().p)
+
+    local zone = trigger.misc.getZone(zoneName)
+
+    local zonePoint = zone.point
+
+    if CAP.getDistance(unitPoint, zonePoint) < zone.radius then
+        return true
+    end
+
+    return false
+end
