@@ -3,13 +3,13 @@
 
 CAP.Waypoints = {}
 
-local distanceBetweenPoints = 38000 -- Adjust freely.
+CAP.distanceBetweenPoints = 38000 -- Adjust freely.
 
 local firstPoint = mist.utils.makeVec2(CAP.getZone("WP_Gen_LT").point)
 local endPoint = mist.utils.makeVec2(CAP.getZone("WP_Gen_RB").point)
 
-local xPointer = firstPoint.x
-local yPointer = firstPoint.y
+local xPointer = mist.utils.round(firstPoint.x)
+local yPointer = mist.utils.round(firstPoint.y)
 
 local tableIdx = 1
 
@@ -19,16 +19,16 @@ CAP.WaypointsGraph = Graph.new()
 
 CAP.WaypointsGraph:AddVertex(tableIdx)
 
-while (xPointer > endPoint.x) do
-    while (yPointer < endPoint.y) do
-        yPointer = yPointer + distanceBetweenPoints
+while (xPointer > mist.utils.round(endPoint.x)) do
+    while (yPointer < mist.utils.round(endPoint.y)) do
+        yPointer = yPointer + CAP.distanceBetweenPoints
         tableIdx = tableIdx + 1
 
         CAP.Waypoints[tableIdx] = {["x"] = xPointer, ["y"] = yPointer}
         CAP.WaypointsGraph:AddVertex(tableIdx)
     end
     
-    xPointer = xPointer - distanceBetweenPoints
+    xPointer = xPointer - CAP.distanceBetweenPoints
     yPointer = firstPoint.y
 end
 
@@ -44,14 +44,14 @@ end
 
 for idx, point in pairs(CAP.Waypoints) do
     local neighbors = {
-        {x = point.x + distanceBetweenPoints, y = point.y}, -- Up
-        {x = point.x - distanceBetweenPoints, y = point.y}, -- Down
-        {x = point.x, y = point.y + distanceBetweenPoints}, -- Right
-        {x = point.x, y = point.y - distanceBetweenPoints}, -- Left
-        {x = point.x + distanceBetweenPoints, y = point.y + distanceBetweenPoints}, -- Top Right
-        {x = point.x + distanceBetweenPoints, y = point.y - distanceBetweenPoints}, -- Top Left
-        {x = point.x - distanceBetweenPoints, y = point.y + distanceBetweenPoints}, -- Bottom Right
-        {x = point.x - distanceBetweenPoints, y = point.y - distanceBetweenPoints}, -- Bottom Left
+        {x = point.x + CAP.distanceBetweenPoints, y = point.y}, -- Up
+        {x = point.x - CAP.distanceBetweenPoints, y = point.y}, -- Down
+        {x = point.x, y = point.y + CAP.distanceBetweenPoints}, -- Right
+        {x = point.x, y = point.y - CAP.distanceBetweenPoints}, -- Left
+        {x = point.x + CAP.distanceBetweenPoints, y = point.y + CAP.distanceBetweenPoints}, -- Top Right
+        {x = point.x + CAP.distanceBetweenPoints, y = point.y - CAP.distanceBetweenPoints}, -- Top Left
+        {x = point.x - CAP.distanceBetweenPoints, y = point.y + CAP.distanceBetweenPoints}, -- Bottom Right
+        {x = point.x - CAP.distanceBetweenPoints, y = point.y - CAP.distanceBetweenPoints}, -- Bottom Left
     }
 
     for _, neighbor in ipairs(neighbors) do
