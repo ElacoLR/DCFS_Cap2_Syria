@@ -25,6 +25,7 @@ function CAP.checkZoneOccupation()
                 if countries[country] == 0 or countries[country] == nil then
                     for k in pairs(countries) do
                         CAP.Zones[zoneType][zoneName] = tonumber(k)
+                        CAP.setFlag(zoneName .. "_country", tonumber(k))
                     end
                 end
             end

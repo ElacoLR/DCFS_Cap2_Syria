@@ -12,6 +12,7 @@ function CAP.spawnGround(groupType, country, zoneName, garrison)
     vars.point = mist.utils.makeVec3(spawnPoint)
     vars.action = 'clone'
     vars.disperse = true
+    vars.maxDisp = 100
     vars.anyTerrain = true
 
     local spawnedGroup = mist.teleportToPoint(vars)
@@ -30,7 +31,7 @@ function CAP.spawnGround(groupType, country, zoneName, garrison)
 end
 
 function CAP.Ground.clearZone(groupName, zoneName)
-    local zoneUnits = mist.getUnitsInZones(mist.makeUnitTable({'[all]'}), {zoneName})
+    local zoneUnits = mist.getUnitsInZonesAddedRadius(mist.makeUnitTable({'[all]'}), {zoneName})
 
     local groupObject = CAP.getAliveGroup(groupName)
 
@@ -49,7 +50,7 @@ function CAP.Ground.clearZone(groupName, zoneName)
     for i = 1, #zoneUnits do
         local vars = {}
 
-        vars.action = AI.Task.VehicleFormation.OFF_ROAD
+        vars.action = AI.Task.VehicleFormation.CONE
         vars.speed = 50
 
         if CAP.getAliveGroupLeader(groupName):getCountry() == 3 and zoneUnits[i]:getCountry() == 47 then
@@ -57,9 +58,9 @@ function CAP.Ground.clearZone(groupName, zoneName)
             
             vars.x = unitPoint.x
             vars.y = unitPoint.y
-        end
 
-        table.insert(enemyPoints, vars)
+            table.insert(enemyPoints, vars)
+        end
     end
 
     totalPoints = {
@@ -81,6 +82,8 @@ function CAP.Ground.clearZone(groupName, zoneName)
         for i = 1, #enemyPoints do
             table.insert(totalPoints, enemyPoints[i])
         end
+
+        CAP.msgToAll(mist.utils.tableShow(totalPoints), 5)
 
         mission = {
             id = 'Mission',
