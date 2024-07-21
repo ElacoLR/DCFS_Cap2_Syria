@@ -62,3 +62,20 @@ for idx, point in pairs(CAP.Waypoints) do
         end
     end
 end
+
+function CAP.searchNearestVertex(coord)
+    coord = mist.utils.makeVec2(coord)
+
+    local coordX = coord.x
+    local coordY = coord.y
+
+    local nearestPoint = 1
+
+    for i = 2, #CAP.Waypoints do
+        if CAP.getDistance(coord, CAP.Waypoints[i]) < CAP.getDistance(coord, CAP.Waypoints[nearestPoint]) then
+            nearestPoint = i
+        end
+    end
+
+    return nearestPoint
+end

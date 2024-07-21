@@ -31,3 +31,7 @@ end
 ]]
 
 -- CAP.groundReinforce('Turkey')
+
+local detTargets = Group.getByName("Template_Turkey_AWACS_Incirlik"):getController():getDetectedTargets()
+
+CAP.msgToAll(mist.utils.tableShow(detTargets), 5)

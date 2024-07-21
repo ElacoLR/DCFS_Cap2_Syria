@@ -8,19 +8,7 @@ function CAP.spawnAir(groupType, country)
 
     local spawnedGroup = mist.teleportToPoint(vars)
 
-    local spawnedCountry
-
-    if country == 'Turkey' then
-        spawnedCountry = 3
-    elseif country == 'Syria' then
-        spawnedCountry = 47
-    end
-
     CAP.aliveAirGroups[spawnedGroup["name"]] = 1
 
     return spawnedGroup["name"]
-end
-
-function CAP.assignTaskToAir(groupName) -- Event handler take off -> assign task.
-
 end
