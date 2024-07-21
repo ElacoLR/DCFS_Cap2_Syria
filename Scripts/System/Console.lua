@@ -30,8 +30,11 @@ for factoryName in pairs(CAP.Buildings.Factory) do
 end
 ]]
 
--- CAP.groundReinforce('Turkey')
+--[[
+CAP.createAirCAP("Turkey")
 
-local detTargets = Group.getByName("Template_Turkey_AWACS_Incirlik"):getController():getDetectedTargets()
+CAP.getDetectedEnemies()
+CAP.msgToAll(mist.utils.tableShow(CAP.DetectedTargets), 5)
+]]
 
-CAP.msgToAll(mist.utils.tableShow(detTargets), 5)
+-- trigger.action.activateGroup(Group.getByName("testGround"))

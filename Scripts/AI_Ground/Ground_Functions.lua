@@ -27,6 +27,23 @@ function CAP.spawnGround(groupType, country, zoneName, garrison)
         CAP.aliveGroundGroups.Assault[spawnedGroup["name"]] = spawnedCountry
     end
 
+    local function setROEAlert()
+        local controller = Group.getByName(spawnedGroup["name"]):getController()
+
+        local setInvisible = {
+            id = 'SetInvisible',
+            params = {
+                value = false,
+            }
+        }
+
+        controller:setOption(AI.Option.Ground.id.ROE, AI.Option.Ground.val.ROE.OPEN_FIRE)
+        controller:setOption(AI.Option.Ground.id.ALARM_STATE, AI.Option.Ground.val.ALARM_STATE.RED)
+        controller:setCommand(setInvisible)
+    end
+
+    mist.scheduleFunction(setROEAlert, {}, timer.getTime() + 2)
+
     return spawnedGroup["name"]
 end
 

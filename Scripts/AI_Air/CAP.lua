@@ -6,6 +6,8 @@ function CAP.createAirCAP(country)
     for k, v in pairs(CAP.Zones.MilitaryBase) do
         if country == 'Turkey' and v == 3 then
             table.insert(selection, k)
+        elseif country == 'Syria' and v == 47 then
+            table.insert(selection, k)
         end
     end
 
@@ -36,9 +38,9 @@ function CAP.createAirCAP(country)
 
                 pointVars.type = AI.Task.WaypointType.TURNING_POINT
                 pointVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-                pointVars.alt = 25000
+                pointVars.alt = mist.utils.feetToMeters(25000)
                 pointVars.alt_type = AI.Task.AltitudeType.BARO
-                pointVars.speed = 450
+                pointVars.speed = mist.utils.knotsToMps(450)
                 pointVars.speed_locked = true
                 pointVars.x = CAP.Waypoints[path[i]].x
                 pointVars.y = CAP.Waypoints[path[i]].y
@@ -47,7 +49,7 @@ function CAP.createAirCAP(country)
                     local engageTask = {
                         id = 'EngageTargets',
                         params = {
-                            maxDist = 70,
+                            maxDist = 40,
                             targetTypes = {"Fighters", "Interceptors", "Multirole fighters", "Battleplanes"},
                             priority = 1,
                         }
@@ -69,8 +71,8 @@ function CAP.createAirCAP(country)
                 pattern = AI.Task.OrbitPattern.RACE_TRACK,
                 point = mist.utils.makeVec2(trigger.misc.getZone(selection[1]).point),
                 point2 = mist.utils.makeVec2(trigger.misc.getZone(selection[2]).point),
-                speed = 450,
-                altitude = 25000,
+                speed = mist.utils.knotsToMps(450),
+                altitude = mist.utils.feetToMeters(25000),
             }
         }
 
@@ -78,9 +80,9 @@ function CAP.createAirCAP(country)
 
         orbitVars.type = AI.Task.WaypointType.TURNING_POINT
         orbitVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-        orbitVars.alt = 25000
+        orbitVars.alt = mist.utils.feetToMeters(25000)
         orbitVars.alt_type = AI.Task.AltitudeType.BARO
-        orbitVars.speed = 450
+        orbitVars.speed = mist.utils.knotsToMps(450)
         orbitVars.speed_locked = true
         orbitVars.x = CAP.Waypoints[path[#path]].x
         orbitVars.y = CAP.Waypoints[path[#path]].y

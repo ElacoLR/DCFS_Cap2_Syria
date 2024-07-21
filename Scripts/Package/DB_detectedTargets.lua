@@ -5,17 +5,21 @@ CAP.DetectedTargets.Red = {}
 
 function CAP.getDetectedEnemies()
     for groupName, _ in pairs(CAP.aliveAirGroups) do
-        local iGroupL = CAP.getAliveGroupLeader(groupName)
-
-        if iGroupL ~= nil then
-            local iGroupCon = iGroupL:getController()
+        local iGroup = CAP.getAliveGroup(groupName)
+        CAP.log("line 9")
+        if iGroup ~= nil then
+            local iGroupCon = iGroup:getController()
 
             local iDetTargets = iGroupCon:getDetectedTargets()
-
-            for _, DetectedTarget in pairs(iDetTargets) do
+            CAP.log("line 14")
+            for index, DetectedTarget in pairs(iDetTargets) do
+                CAP.log("line 16")
                 if DetectedTarget ~= nil then
+                    CAP.log("line 18")
                     if DetectedTarget.object ~= nil then
-                        if DetectedTarget.object:getCategory() == 1 and CAP.getAliveUnit(DetectedTarget.object:getName()) ~= nil then
+                        CAP.log("line 20")
+                        if CAP.getAliveUnit(DetectedTarget.object:getName()) ~= nil then
+                            CAP.log("line 22")
                             local detUnit = CAP.getAliveUnit(DetectedTarget.object:getName())
                             local detGroup = detUnit:getGroup()
 
@@ -32,5 +36,14 @@ function CAP.getDetectedEnemies()
             end
         end
     end
+
+    -- Refresh
+    for coal, tbl in pairs(CAP.DetectedTargets) do
+        for groupName, val in pairs(tbl) do
+            if CAP.getAliveGroup(groupName) == nil then
+                CAP.DetectedTargets[coal][groupName] = nil
+            end
+        end
+    end
 end
-mist.scheduleFunction(CAP.getDetectedEnemies, {}, timer.getTime() + 10, 300)
+mist.scheduleFunction(CAP.getDetectedEnemies, {}, timer.getTime() + 5, 60)
