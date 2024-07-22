@@ -50,7 +50,7 @@ function CAP.initGround()
             end
         end
     end
-
+    
     trigger.action.activateGroup(Group.getByName("Syr_lSAM_Duhur_1"))
     trigger.action.activateGroup(Group.getByName("Syr_lSAM_Kuweires_1"))
     trigger.action.activateGroup(Group.getByName("Turk_lSAM_Incirlik_1"))
