@@ -12,14 +12,12 @@ CAP.Template.Air.Turkey.STRIKE = {"Template_Turkey_STRIKE_Incirlik", "Template_T
 CAP.Template.Air.Syria = {}
 
 CAP.Template.Air.Syria.AWACS = {}
-CAP.Template.Air.Syria.CAP = {"Template_Syria_CAP_Kuweires"}
+CAP.Template.Air.Syria.CAP = {"Template_Syria_CAP_Kuweires", "Template_Syria_CAP_Jirah", "Template_Syria_CAP_Duhur", "Template_Syria_CAP_Tabqa"}
 CAP.Template.Air.Syria.SEAD = {"Template_Syria_SEAD_Kuweires"}
 CAP.Template.Air.Syria.STRIKE = {"Template_Syria_STRIKE_Kuweires"}
 
 CAP.Template.Ground = {}
 
--- Ground template : Index number decide the type.
--- 1 : Armored, 2 : Mechanized, 3 : Motorized, 4 : Short AA, 5 : Infantry
 
 CAP.Template.Ground.Turkey = {"Template_Turkey_Armored", "Template_Turkey_Mechanized", "Template_Turkey_Motorized", "Template_Turkey_sAA", "Template_Turkey_Infantry"}
 CAP.Template.Ground.Syria = {"Template_Syria_Armored", "Template_Syria_Mechanized", "Template_Syria_Motorized", "Template_Syria_sAA", "Template_Syria_Infantry"}
@@ -35,9 +33,9 @@ CAP.Zones = {}
 -- ENUM COUNTRY (To efficiently use scripting functions.)
 -- 3 : Turkey, 47 : Syria, 3 : ...
 
-CAP.Zones.Airport = {["Airport_Minakh"] = 47, ["Airport_Hatay"] = 3, ["Airport_Gaziantep"] = 3, ["Airport_Sanliurfa"] = 3, ["Airport_Aleppo"] = 47, ["Airport_Taftanaz"] = 47,}
+CAP.Zones.Airport = {["Airport_Minakh"] = 47, ["Airport_Hatay"] = 3, ["Airport_Gaziantep"] = 3, ["Airport_Aleppo"] = 47, ["Airport_Taftanaz"] = 47,}
 
-CAP.Zones.Airbase = {["Airbase_Incirlik"] = 3, ["Airbase_Kuweires"] = 47, ["Airbase_Duhur"] = 47,}
+CAP.Zones.Airbase = {["Airbase_Incirlik"] = 3, ["Airbase_Sanliurfa"] = 3, ["Airbase_Kuweires"] = 47, ["Airbase_Duhur"] = 47, ["Airbase_Jirah"] = 47, ["Airbase_Tabqa"] = 47}
 
 CAP.Zones.MilitaryBase = {["MilitaryBase_BA53"] = 3, ["MilitaryBase_BA89"] = 3, ["MilitaryBase_DA88"] = 3, ["MilitaryBase_CA20"] = 47, ["MilitaryBase_CA63"] = 47, 
     ["MilitaryBase_DA40"] = 47,}

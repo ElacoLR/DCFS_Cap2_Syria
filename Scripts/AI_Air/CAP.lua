@@ -1,105 +1,103 @@
-function CAP.createAirCAP(country)
+function CAP.createAirCAP(country, orbitPoints)
     local groupName = CAP.spawnAir('CAP', country)
 
-    local selection = {}
+    local groupLeader = Group.getByName(groupName):getUnits()[1]
+    local groupLeaderPos = mist.utils.makeVec2(groupLeader:getPosition().p)
+    
+    local groupController = Group.getByName(groupName):getController()
 
-    for k, v in pairs(CAP.Zones.MilitaryBase) do
-        if country == 'Turkey' and v == 3 then
-            table.insert(selection, k)
-        elseif country == 'Syria' and v == 47 then
-            table.insert(selection, k)
-        end
-    end
+    local startPoint = CAP.searchNearestVertex(groupLeaderPos)
 
-    if #selection > 2 then
-        repeat
-            table.remove(selection, math.random(1, #selection))
-        until(#selection < 3)
-    end
+    local endPoint = CAP.searchNearestVertex(mist.utils.makeVec2(trigger.misc.getZone(orbitPoints[math.random(1, 2)]).point))
 
-    local function assign()
-        local groupLeader = Group.getByName(groupName):getUnits()[1]
-        local groupLeaderPos = mist.utils.makeVec2(groupLeader:getPosition().p)
-        
-        local groupController = Group.getByName(groupName):getController()
+    local path, _ = ShortestPath(CAP.WaypointsGraph, startPoint, endPoint)
 
-        local startPoint = CAP.searchNearestVertex(groupLeaderPos)
+    local points = {}
 
-        local endPoint = CAP.searchNearestVertex(mist.utils.makeVec2(trigger.misc.getZone(selection[math.random(1, 2)]).point))
+    local engageTask = {}
 
-        local path, _ = ShortestPath(CAP.WaypointsGraph, startPoint, endPoint)
+    if path then
+        for i = 1, #path - 1 do
+            local pointVars = {}
 
-        local points = {}
+            pointVars.type = AI.Task.WaypointType.TURNING_POINT
+            pointVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
+            pointVars.alt = mist.utils.feetToMeters(25000)
+            pointVars.alt_type = AI.Task.AltitudeType.BARO
+            pointVars.speed = mist.utils.knotsToMps(450)
+            pointVars.speed_locked = true
+            pointVars.x = CAP.Waypoints[path[i]].x
+            pointVars.y = CAP.Waypoints[path[i]].y
 
-        if path then
-            CAP.log("Shortest path from" .. path[1] .. "to" .. path[#path] .. " : " .. table.concat(path, " -> "))
-            for i = 1, #path - 1 do
-                local pointVars = {}
-
-                pointVars.type = AI.Task.WaypointType.TURNING_POINT
-                pointVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-                pointVars.alt = mist.utils.feetToMeters(25000)
-                pointVars.alt_type = AI.Task.AltitudeType.BARO
-                pointVars.speed = mist.utils.knotsToMps(450)
-                pointVars.speed_locked = true
-                pointVars.x = CAP.Waypoints[path[i]].x
-                pointVars.y = CAP.Waypoints[path[i]].y
-
-                if i == 1 then
-                    local engageTask = {
-                        id = 'EngageTargets',
-                        params = {
-                            maxDist = 40,
-                            targetTypes = {"Fighters", "Interceptors", "Multirole fighters", "Battleplanes"},
-                            priority = 1,
-                        }
+            if i == 1 then
+                engageTask = {
+                    id = 'EngageTargets',
+                    params = {
+                        maxDist = mist.utils.NMToMeters(40),
+                        maxDistEnabled = true,
+                        targetTypes = {"Fighters", "Interceptors", "Multirole fighters", "Battleplanes"},
                     }
-
-                    pointVars.task = engageTask
-                end
-
-                table.insert(points, pointVars)
-            end
-        else
-            CAP.log("Shortest path error : can not find path.")
-            CAP.log("Shortest path error : " .. _)
-        end
-
-        local orbitTask = {
-            id = 'Orbit',
-            params = {
-                pattern = AI.Task.OrbitPattern.RACE_TRACK,
-                point = mist.utils.makeVec2(trigger.misc.getZone(selection[1]).point),
-                point2 = mist.utils.makeVec2(trigger.misc.getZone(selection[2]).point),
-                speed = mist.utils.knotsToMps(450),
-                altitude = mist.utils.feetToMeters(25000),
-            }
-        }
-
-        local orbitVars = {}
-
-        orbitVars.type = AI.Task.WaypointType.TURNING_POINT
-        orbitVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-        orbitVars.alt = mist.utils.feetToMeters(25000)
-        orbitVars.alt_type = AI.Task.AltitudeType.BARO
-        orbitVars.speed = mist.utils.knotsToMps(450)
-        orbitVars.speed_locked = true
-        orbitVars.x = CAP.Waypoints[path[#path]].x
-        orbitVars.y = CAP.Waypoints[path[#path]].y
-        orbitVars.task = orbitTask
-
-        table.insert(points, orbitVars)
-
-        local mission = {
-            id = 'Mission',
-            params = {
-                route = {
-                    points = points
                 }
-            }
-        }
 
-        groupController:setTask(mission)
+                pointVars.task = engageTask
+            end
+
+            table.insert(points, pointVars)
+        end
+    else
+        CAP.log("Shortest path error : can not find path.")
+        CAP.log("Shortest path error : " .. _)
     end
-    mist.scheduleFunction(assign, {}, timer.getTime() + 10) -- Due to group not being alive in mission immediately after spawning, it needs some delay to actually assign a mission.
+
+    local orbitTask = {
+        id = 'Orbit',
+        params = {
+            pattern = AI.Task.OrbitPattern.RACE_TRACK,
+            point = mist.utils.makeVec2(trigger.misc.getZone(orbitPoints[1]).point),
+            point2 = mist.utils.makeVec2(trigger.misc.getZone(orbitPoints[2]).point),
+            speed = mist.utils.knotsToMps(450),
+            altitude = mist.utils.feetToMeters(25000),
+        }
+    }
+
+    local orbitVars = {}
+
+    orbitVars.type = AI.Task.WaypointType.TURNING_POINT
+    orbitVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
+    orbitVars.alt = mist.utils.feetToMeters(25000)
+    orbitVars.alt_type = AI.Task.AltitudeType.BARO
+    orbitVars.speed = mist.utils.knotsToMps(450)
+    orbitVars.speed_locked = true
+    orbitVars.x = CAP.Waypoints[path[#path]].x
+    orbitVars.y = CAP.Waypoints[path[#path]].y
+    orbitVars.task = orbitTask
+
+    table.insert(points, orbitVars)
+
+    local controlledTask = {
+        id = 'ControlledTask',
+        params = {
+            task = {
+                id = 'Mission',
+                params = {
+                    airborne = true,
+                    route = {
+                        points = points,
+                    }
+                }
+            },
+            condition = {
+                probability = 100,
+            },
+            stopCondition = {
+
+            },
+        }
+    }
+
+    -- groupController:setTask(mission)
+    -- groupController:setOption(AI.Option.Air.id.ROE, AI.Option.Air.val.ROE.OPEN_FIRE)
+    CAP.listMission(groupName, controlledTask)
+
+    return groupName
 end

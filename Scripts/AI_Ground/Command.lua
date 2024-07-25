@@ -38,7 +38,5 @@ function CAP.newCommand()
             end
         end
     end
-
-    CAP.msgToAll("new Command executed.", 5)
 end
 mist.scheduleFunction(CAP.newCommand, {}, timer.getTime() + 1, 300)

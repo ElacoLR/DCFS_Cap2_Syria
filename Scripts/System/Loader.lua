@@ -15,3 +15,4 @@ dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Ground\]] .. "Command.lua
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "Air_Functions.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "Init.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "CAP.lua")
+dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "Command.lua")

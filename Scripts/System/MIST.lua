@@ -2065,6 +2065,7 @@ do -- the main scope
 		end
 		taskId = taskId + 1
 		table.insert(scheduledTasks, {f = f, vars = vars, t = t, rep = rep, st = st, id = taskId})
+		env.info("Scheduled : " .. tostring(f))
 		return taskId
 	end
 

@@ -8,14 +8,39 @@ function CAP.spawnGround(groupType, country, zoneName, garrison)
         spawnPoint = mist.getRandomPointInZone(zoneName)
     until(mist.isTerrainValid(spawnPoint, {"LAND"}))
 
-    vars.groupName = "Template_" .. country .. "_" .. groupType
+    if country == 'Syria' and groupType == 'mAA' then
+        local randomTable = {"Template_Syria_mAA", "Template_Syria_mAA_2"}
+        vars.groupName = randomTable[math.random(1, 2)]
+    else
+        vars.groupName = "Template_" .. country .. "_" .. groupType
+    end
     vars.point = mist.utils.makeVec3(spawnPoint)
     vars.action = 'clone'
     vars.disperse = true
     vars.maxDisp = 100
     vars.anyTerrain = true
 
+    -- Set "groupname_type" flag value. ( 1 : Armored, 2 : Mechanized, 3 : Motorized, 4 : Short AA, 5 : Medium AA, 6 : Long AA, 7 : Infantry, 8 : EWR )
+
     local spawnedGroup = mist.teleportToPoint(vars)
+
+    local flagValue = 0
+
+    if groupType == "Armored" then
+        flagValue = 1
+    elseif groupType == "Mechanized" then
+        flagValue = 2
+    elseif groupType == "Motorized" then
+        flagValue = 3
+    elseif groupType == "sAA" then
+        flagValue = 4
+    elseif groupType == "mAA" then
+        flagValue = 5
+    elseif groupType == "Infantry" then
+        flagValue = 7
+    end
+
+    CAP.setFlag(spawnedGroup["name"] .. "_type", flagValue)
 
     local spawnedGroupObject = CAP.getAliveGroupLeader(spawnedGroup["name"])
 
@@ -42,7 +67,7 @@ function CAP.spawnGround(groupType, country, zoneName, garrison)
         controller:setCommand(setInvisible)
     end
 
-    mist.scheduleFunction(setROEAlert, {}, timer.getTime() + 2)
+    mist.scheduleFunction(setROEAlert, {}, timer.getTime() + 5)
 
     return spawnedGroup["name"]
 end

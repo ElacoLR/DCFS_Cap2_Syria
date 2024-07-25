@@ -1,5 +1,7 @@
 CAP.Air = {}
 
+CAP.missionList = {}
+
 function CAP.spawnAir(groupType, country)
     local vars = {}
 
@@ -19,4 +21,8 @@ function CAP.spawnAir(groupType, country)
     mist.scheduleFunction(setROE, {}, timer.getTime() + 2) -- Possibly move to take off event.
 
     return spawnedGroup["name"]
+end
+
+function CAP.listMission(groupName, mission)
+    CAP.missionList[groupName] = mission
 end

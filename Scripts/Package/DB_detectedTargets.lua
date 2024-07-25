@@ -3,23 +3,25 @@ CAP.DetectedTargets = {}
 CAP.DetectedTargets.Blue = {}
 CAP.DetectedTargets.Red = {}
 
+-- Key : Group name / Value : Group type ( 1 : Armored, 2 : Mechanized, 3 : Motorized, 4 : Short AA, 5 : Medium AA, 6 : Long AA, 7 : Infantry )
+
+-- Not working as I intended.
+-- Pretend that blue coalition is getting satellite image occasionally to get whereabouts of mSAM and lSAM.
+-- Other units are based on getDetectedTargets as usual.
+-- Input mSAM and lSAM data to CAP.DetectedTargets.Blue in .\AI_Ground\Init.lua
+
 function CAP.getDetectedEnemies()
     for groupName, _ in pairs(CAP.aliveAirGroups) do
         local iGroup = CAP.getAliveGroup(groupName)
-        CAP.log("line 9")
+
         if iGroup ~= nil then
             local iGroupCon = iGroup:getController()
 
             local iDetTargets = iGroupCon:getDetectedTargets()
-            CAP.log("line 14")
             for index, DetectedTarget in pairs(iDetTargets) do
-                CAP.log("line 16")
                 if DetectedTarget ~= nil then
-                    CAP.log("line 18")
                     if DetectedTarget.object ~= nil then
-                        CAP.log("line 20")
                         if CAP.getAliveUnit(DetectedTarget.object:getName()) ~= nil then
-                            CAP.log("line 22")
                             local detUnit = CAP.getAliveUnit(DetectedTarget.object:getName())
                             local detGroup = detUnit:getGroup()
 

@@ -30,11 +30,4 @@ for factoryName in pairs(CAP.Buildings.Factory) do
 end
 ]]
 
-
---CAP.createAirCAP("Syria")
-
-CAP.getDetectedEnemies()
-CAP.msgToAll(mist.utils.tableShow(CAP.DetectedTargets), 5)
-
-
--- trigger.action.activateGroup(Group.getByName("testGround"))
+CAP.msgToAll(mist.utils.tableShow(CAP.Package.Air), 30)
