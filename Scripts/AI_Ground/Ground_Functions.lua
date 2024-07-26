@@ -156,7 +156,7 @@ function CAP.Ground.Go(groupObject, destination) -- If destination is nil then s
         local mission = {}
 
         do
-            local vec2DestPoint = mist.utils.makeVec2(trigger.misc.getZone(destination).point)
+            local vec2DestPoint = mist.utils.makeVec2(CAP.getZone(destination).point)
             local vec2Veh = groupObject:getUnits()[1]
             local vec2VehPoint = mist.utils.makeVec2(vec2Veh:getPosition().p)
 

@@ -1,4 +1,4 @@
-local eH_Takeoff = {}
+local eH_engineStart = {}
 
 function CAP.executePackage(country) -- Only execute if no player assigned. If assigned player exist -> execute when the player choose the package.
     for id, data in pairs(CAP.Package.Air[country]) do
@@ -8,6 +8,9 @@ function CAP.executePackage(country) -- Only execute if no player assigned. If a
                 
                 if data.missionType == 'BARCAP' then
                     local aiGroupName = CAP.createAirCAP(data.country, data.orbitPoints)
+                    copiedData["assignedGroupNames"][#copiedData["assignedGroupNames"] + 1] = aiGroupName
+                elseif data.missionType == 'SEAD' then
+                    local aiGroupName = CAP.createAirSEAD(data.country, data.targetGroupName)
                     copiedData["assignedGroupNames"][#copiedData["assignedGroupNames"] + 1] = aiGroupName
                 end
 
@@ -29,8 +32,8 @@ end
 mist.scheduleFunction(CAP.doExecutePackage, {'Turkey'}, timer.getTime() + 60)
 mist.scheduleFunction(CAP.doExecutePackage, {'Syria'}, timer.getTime() + 60)
 
-function eH_Takeoff:onEvent(e)
-    if e.id == 18 then
+function eH_engineStart:onEvent(e)
+    if e.id == 18 then -- S_EVENT_ENGINE_STARTUP
         if Object.getCategory(e.initiator) == 1 and not Unit.getPlayerName(e.initiator) then
             local groupName = e.initiator:getGroup():getName()
 
@@ -40,10 +43,11 @@ function eH_Takeoff:onEvent(e)
                 local dummyReset = groupCon:hasTask()
                 groupCon:resetTask()
 
-                mist.scheduleFunction(Controller.pushTask, {groupCon, CAP.missionList[groupName]}, timer.getTime() + 2)
+                mist.scheduleFunction(Controller.setTask, {groupCon, CAP.missionList[groupName]}, timer.getTime() + 2)
+                mist.scheduleFunction(Controller.setOption, {groupCon, AI.Option.Air.id.ROE, AI.Option.Air.val.ROE.OPEN_FIRE}, timer.getTime() + 4)
                 CAP.missionList[groupName] = nil
             end
         end
     end
 end
-world.addEventHandler(eH_Takeoff)
+world.addEventHandler(eH_engineStart)

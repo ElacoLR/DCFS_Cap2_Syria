@@ -89,6 +89,12 @@ function CAP.searchAirPackage(searchType, country, searchFor)
                 count = count + 1
             end
         end
+
+        if searchType == 'target' then
+            if searchFor == data.targetGroupName then
+                return true
+            end
+        end
     end
 
     for id, data in pairs(CAP.Package.Air.Active[country]) do
@@ -97,10 +103,20 @@ function CAP.searchAirPackage(searchType, country, searchFor)
                 count = count + 1
             end
         end
+
+        if searchType == 'target' then
+            if searchFor == data.targetGroupName then
+                return true
+            end
+        end
     end
 
     if searchType == 'count' then
         return count
+    end
+
+    if searchType == 'target' then
+        return false
     end
 end
 
@@ -114,6 +130,8 @@ function CAP.createAirPackage(missionType, country)
 
     packageVars.country = country
     packageVars.missionType = missionType
+    packageVars.assignedPlayers = {}
+    packageVars.assignedGroupNames = {}
 
     if missionType == 'BARCAP' and CAP.searchAirPackage('count', country, missionType) < 4 then
         local selection = {}
@@ -134,19 +152,105 @@ function CAP.createAirPackage(missionType, country)
 
         packageVars.orbitPoints = selection
 
-        packageVars.assignedPlayers = {}
-
-        packageVars.assignedGroupNames = {}
-
         CAP.Package.Air[country][packageVars.id] = packageVars
+    elseif missionType == 'SEAD' and CAP.searchAirPackage('count', country, missionType) < 2 then
+        local airbases = {}
+        local targetGroups = {}
+        
+        if country == 'Turkey' then
+            for zoneName, countryValue in pairs(CAP.Zones.Airbase) do
+                if countryValue == 3 then
+                    table.insert(airbases, zoneName)
+                end
+            end
+
+            local xAvg = 0
+            local yAvg = 0
+
+            for i = 1, #airbases do
+                local vec2Point = mist.utils.makeVec2(CAP.getZone(airbases[i]).point)
+                xAvg = xAvg + vec2Point.x
+                yAvg = yAvg + vec2Point.y
+            end
+
+            xAvg = xAvg / #airbases
+            yAvg = yAvg / #airbases
+
+            local avgPoint = {["x"] = xAvg, ["y"] = yAvg}
+
+            for groupName, _ in pairs(CAP.DetectedTargets.Blue) do
+                if CAP.getFlag(groupName .. "_type") == 5 or CAP.getFlag(groupName .. "_type") == 6 then
+                    targetGroups[groupName] = CAP.getDistance(avgPoint, CAP.getAliveGroupLeader(groupName):getPosition().p)
+                end
+            end
+
+            local sortedGroups = CAP.getKeysSortedByValue(targetGroups, function(a, b) return a < b end)
+
+            local iteration = 0
+            if #sortedGroups > 0 then
+                repeat
+                    iteration = iteration + 1
+                until(CAP.searchAirPackage('target', country, sortedGroups[iteration]) == false)
+
+                packageVars.targetGroupName = sortedGroups[iteration]
+
+                CAP.Package.Air[country][packageVars.id] = packageVars
+
+                CAP.log("SEAD Package Created. Check : CAP.Package.Air")
+            end
+        elseif country == 'Syria' then
+            for zoneName, countryValue in pairs(CAP.Zones.Airbase) do
+                if countryValue == 47 then
+                    table.insert(airbases, zoneName)
+                end
+            end
+
+            local xAvg = 0
+            local yAvg = 0
+
+            for i = 1, #airbases do
+                local vec2Point = mist.utils.makeVec2(CAP.getZone(airbases[i]).point)
+                xAvg = xAvg + vec2Point.x
+                yAvg = yAvg + vec2Point.y
+            end
+
+            xAvg = xAvg / #airbases
+            yAvg = yAvg / #airbases
+            
+            local avgPoint = {["x"] = xAvg, ["y"] = yAvg}
+
+            for groupName, _ in pairs(CAP.DetectedTargets.Red) do
+                if CAP.getFlag(groupName .. "_type") == 5 or CAP.getFlag(groupName .. "_type") == 6 then
+                    targetGroups[groupName] = CAP.getDistance(avgPoint, CAP.getAliveGroupLeader(groupName):getPosition().p)
+                end
+            end
+
+            local sortedGroups = CAP.getKeysSortedByValue(targetGroups, function(a, b) return a < b end)
+
+            local iteration = 0
+
+            if #sortedGroups > 0 then
+                repeat
+                    iteration = iteration + 1
+                until(CAP.searchAirPackage('target', country, sortedGroups[iteration]) == false)
+
+                packageVars.targetGroupName = sortedGroups[iteration]
+
+                CAP.Package.Air[country][packageVars.id] = packageVars
+
+                CAP.log("SEAD Package Created. Check : CAP.Package.Air")
+            end
+        end
     end
+
     CAP.createBARCAP()
+    CAP.createSEAD()
 end
 
 function CAP.createBARCAP()
     local turkEco = CAP.Economy.Turkey
     local syrEco = CAP.Economy.Syria
-    local reinforceMultiplier = 5000
+    local reinforceMultiplier = 10000
 
     turkEco = mist.utils.round(reinforceMultiplier / turkEco)
     syrEco = mist.utils.round(reinforceMultiplier / syrEco)
@@ -155,3 +259,16 @@ function CAP.createBARCAP()
     mist.scheduleFunction(CAP.createAirPackage, {'BARCAP', 'Syria'}, timer.getTime() + syrEco)
 end
 mist.scheduleFunction(CAP.createBARCAP, {}, timer.getTime() + 60)
+
+function CAP.createSEAD()
+    local turkEco = CAP.Economy.Turkey
+    local syrEco = CAP.Economy.Syria
+    local reinforceMultiplier = 15000
+
+    turkEco = mist.utils.round(reinforceMultiplier / turkEco)
+    syrEco = mist.utils.round(reinforceMultiplier / syrEco)
+
+    mist.scheduleFunction(CAP.createAirPackage, {'SEAD', 'Turkey'}, timer.getTime() + turkEco)
+    mist.scheduleFunction(CAP.createAirPackage, {'SEAD', 'Syria'}, timer.getTime() + syrEco)
+end
+mist.scheduleFunction(CAP.createSEAD, {}, timer.getTime() + 120)

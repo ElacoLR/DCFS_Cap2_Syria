@@ -16,9 +16,9 @@ function CAP.newCommand()
             for __, tbl in pairs(CAP.Zones) do
                 for zoneName, country in pairs(tbl) do
                     if coal == 2 and country == 47 then -- blue team (opposing zone : 47, ...)
-                        targetZones[zoneName] = CAP.getDistance(groupLeader:getPosition().p, trigger.misc.getZone(zoneName).point)
+                        targetZones[zoneName] = CAP.getDistance(groupLeader:getPosition().p, CAP.getZone(zoneName).point)
                     elseif coal == 1 and country == 3 then
-                        targetZones[zoneName] = CAP.getDistance(groupLeader:getPosition().p, trigger.misc.getZone(zoneName).point)
+                        targetZones[zoneName] = CAP.getDistance(groupLeader:getPosition().p, CAP.getZone(zoneName).point)
                     end
                 end
             end

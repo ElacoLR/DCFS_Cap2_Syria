@@ -62,11 +62,11 @@ function CAP.getDistance(p1, p2)
     local p1x, p1y, p2x, p2y
 
     if type(p1) == 'string' then
-        p1 = trigger.misc.getZone(p1).point
+        p1 = CAP.getZone(p1).point
     end
 
     if type(p2) == 'string' then
-        p2 = trigger.misc.getZone(p2).point
+        p2 = CAP.getZone(p2).point
     end
 
     if p1.z then
@@ -266,7 +266,7 @@ function CAP.isInZone(unit, zoneName) -- assume that zone is circle.
 
     local unitPoint = mist.utils.makeVec2(unitObject:getPosition().p)
 
-    local zone = trigger.misc.getZone(zoneName)
+    local zone = CAP.getZone(zoneName)
 
     local zonePoint = zone.point
 

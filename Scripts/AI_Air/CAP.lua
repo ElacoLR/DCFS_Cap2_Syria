@@ -8,7 +8,7 @@ function CAP.createAirCAP(country, orbitPoints)
 
     local startPoint = CAP.searchNearestVertex(groupLeaderPos)
 
-    local endPoint = CAP.searchNearestVertex(mist.utils.makeVec2(trigger.misc.getZone(orbitPoints[math.random(1, 2)]).point))
+    local endPoint = CAP.searchNearestVertex(mist.utils.makeVec2(CAP.getZone(orbitPoints[math.random(1, 2)]).point))
 
     local path, _ = ShortestPath(CAP.WaypointsGraph, startPoint, endPoint)
 
@@ -53,8 +53,8 @@ function CAP.createAirCAP(country, orbitPoints)
         id = 'Orbit',
         params = {
             pattern = AI.Task.OrbitPattern.RACE_TRACK,
-            point = mist.utils.makeVec2(trigger.misc.getZone(orbitPoints[1]).point),
-            point2 = mist.utils.makeVec2(trigger.misc.getZone(orbitPoints[2]).point),
+            point = mist.utils.makeVec2(CAP.getZone(orbitPoints[1]).point),
+            point2 = mist.utils.makeVec2(CAP.getZone(orbitPoints[2]).point),
             speed = mist.utils.knotsToMps(450),
             altitude = mist.utils.feetToMeters(25000),
         }
@@ -94,9 +94,6 @@ function CAP.createAirCAP(country, orbitPoints)
             },
         }
     }
-
-    -- groupController:setTask(mission)
-    -- groupController:setOption(AI.Option.Air.id.ROE, AI.Option.Air.val.ROE.OPEN_FIRE)
     CAP.listMission(groupName, controlledTask)
 
     return groupName
