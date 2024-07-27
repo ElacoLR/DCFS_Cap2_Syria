@@ -85,19 +85,21 @@ function CAP.createAirSEAD(country, targetGroupName)
         end
     end
 
-    local engageVars = {}
+    for i = 1, #tasks do
+        local engageVars = {}
 
-    engageVars.type = AI.Task.WaypointType.TURNING_POINT
-    engageVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-    engageVars.alt = mist.utils.feetToMeters(30000)
-    engageVars.alt_type = AI.Task.AltitudeType.BARO
-    engageVars.speed = mist.utils.knotsToMps(450)
-    engageVars.speed_locked = true
-    engageVars.x = CAP.Waypoints[path[#path]].x
-    engageVars.y = CAP.Waypoints[path[#path]].y
-    engageVars.task = attackTask
+        engageVars.type = AI.Task.WaypointType.TURNING_POINT
+        engageVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
+        engageVars.alt = mist.utils.feetToMeters(30000)
+        engageVars.alt_type = AI.Task.AltitudeType.BARO
+        engageVars.speed = mist.utils.knotsToMps(450)
+        engageVars.speed_locked = true
+        engageVars.x = CAP.Waypoints[path[#path]].x
+        engageVars.y = CAP.Waypoints[path[#path]].y
+        engageVars.task = tasks[i]
 
-    table.insert(points,engageVars)
+        table.insert(points, engageVars)
+    end
 
     local controlledTask = {
         id = 'ControlledTask',

@@ -33,9 +33,9 @@ function CAP.createAirCAP(country, orbitPoints)
                 engageTask = {
                     id = 'EngageTargets',
                     params = {
-                        maxDist = mist.utils.NMToMeters(40),
+                        maxDist = mist.utils.NMToMeters(50),
                         maxDistEnabled = true,
-                        targetTypes = {"Fighters", "Interceptors", "Multirole fighters", "Battleplanes"},
+                        targetTypes = {"Planes"},
                     }
                 }
 

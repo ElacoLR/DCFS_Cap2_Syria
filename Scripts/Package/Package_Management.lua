@@ -36,7 +36,7 @@ function CAP.refreshPackage()
             CAP.Package.Ground[k] = nil
         end
     end
-
+    --[[
     for id, data in pairs(CAP.Package.Air.Active['Turkey']) do
         if #data.assignedGroupNames > 0 then
             local aliveGroupCount = 0
@@ -52,6 +52,26 @@ function CAP.refreshPackage()
             end
         else
             CAP.Package.Air.Active['Turkey'][id] = nil
+        end
+    end
+    ]]
+    for country, tbl in pairs(CAP.Package.Air.Active) do
+        for id, data in pairs(tbl) do
+            if #data.assignedGroupNames > 0 then
+                local aliveGroupCount = 0
+
+                for i = 1, #data.assignedGroupNames do
+                    if CAP.getAliveGroup(data.assignedGroupNames[i]) then
+                        aliveGroupCount = aliveGroupCount + 1
+                    end
+                end
+
+                if aliveGroupCount < 1 then
+                    CAP.Package.Air.Active[country][id] = nil
+                end
+            else
+                CAP.Package.Air.Active[country][id] = nil
+            end
         end
     end
 end
