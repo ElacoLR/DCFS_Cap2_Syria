@@ -3,6 +3,7 @@ dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\System\]] .. "Graph_Path.lua
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\System\]] .. "Basic_Functions.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\System\]] .. "Waypoint_Gen.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\System\]] .. "Templates.lua")
+dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\System\]] .. "Cleaner.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\Economy\]] .. "Init.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\Zones\]] .. "Init.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\Zones\]] .. "Occupation.lua")
@@ -16,4 +17,5 @@ dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "Air_Functions.
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "Init.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "CAP.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "SEAD.lua")
+dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "DEAD.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "Command.lua")

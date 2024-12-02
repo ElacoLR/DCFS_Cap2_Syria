@@ -214,6 +214,23 @@ function CAP.createAirPackage(missionType, country)
 
                 packageVars.targetGroupName = sortedGroups[iteration]
 
+                -- Check if all Search Radars are dead. -> Make it DEAD package.
+
+                local groupUnits = CAP.getAliveGroup(packageVars.targetGroupName):getUnits()
+
+                local srAlive = false
+
+                for idx, data in pairs(groupUnits) do
+                    if data:hasAttribute("SAM SR") then
+                        srAlive = true
+                        break
+                    end
+                end
+
+                if (srAlive == false) then
+                    packageVars.missionType = "DEAD"
+                end
+
                 CAP.Package.Air[country][packageVars.id] = packageVars
 
                 CAP.log("SEAD Package Created. Check : CAP.Package.Air")

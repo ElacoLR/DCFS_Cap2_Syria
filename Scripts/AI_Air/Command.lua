@@ -12,6 +12,9 @@ function CAP.executePackage(country) -- Only execute if no player assigned. If a
                 elseif data.missionType == 'SEAD' then
                     local aiGroupName = CAP.createAirSEAD(data.country, data.targetGroupName)
                     copiedData["assignedGroupNames"][#copiedData["assignedGroupNames"] + 1] = aiGroupName
+                elseif data.missionType == 'DEAD' then
+                    local aiGroupName = CAP.createAirDEAD(data.country, data.targetGroupName)
+                    copiedData["assignedGroupNames"][#copiedData["assignedGroupNames"] + 1] = aiGroupName
                 end
 
                 CAP.Package.Air.Active[country][id] = copiedData

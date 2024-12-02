@@ -1,5 +1,5 @@
-function CAP.createAirSEAD(country, targetGroupName)
-    local groupName = CAP.spawnAir('SEAD', country)
+function CAP.createAirDEAD(country, targetGroupName)
+    local groupName = CAP.spawnAir('DEAD', country)
 
     local groupLeader = Group.getByName(groupName):getUnits()[1]
     local groupLeaderPos = mist.utils.makeVec2(groupLeader:getPosition().p)
@@ -46,9 +46,7 @@ function CAP.createAirSEAD(country, targetGroupName)
         CAP.log("Shortest path error : " .. _)
     end
 
-    -- Assign SR and TR to engage.
-
-    local attributes = {["SAM SR"] = true, ["SAM TR"] = true,}
+    -- Assign SAM units to engage.
 
     local targets = {}
 
@@ -57,11 +55,9 @@ function CAP.createAirSEAD(country, targetGroupName)
     local anyFound = false
 
     for i = 1, #targetUnits do
-        for attName, _ in pairs(attributes) do
-            if targetUnits[i]:hasAttribute(attName) then
-                targets[targetUnits[i]:getName()] = targetUnits[i]:getID()
-                anyFound = true
-            end
+        if targetUnits[i]:hasAttribute("SAM related") then
+            targets[targetUnits[i]:getName()] = targetUnits[i]:getID()
+            anyFound = true
         end
     end
 
@@ -75,10 +71,9 @@ function CAP.createAirSEAD(country, targetGroupName)
                 params = {
                     unitId = tId,
                     weaponType = 4161536,
-                    expend = "Two",
-                    attackQtyLimit = true,
-                    attackQty = 1,
                     groupAttack = true,
+                    attackQtyLimit = true,
+                    attackQty = 9999,
                 }
             }
             CAP.log("assigned : " .. tName)
@@ -95,8 +90,8 @@ function CAP.createAirSEAD(country, targetGroupName)
         engageVars.alt_type = AI.Task.AltitudeType.BARO
         engageVars.speed = mist.utils.knotsToMps(450)
         engageVars.speed_locked = true
-        engageVars.x = CAP.Waypoints[path[#path]].x
-        engageVars.y = CAP.Waypoints[path[#path]].y
+        engageVars.x = CAP.Waypoints[path[#path]].x + (i - 1)
+        engageVars.y = CAP.Waypoints[path[#path]].y + (i - 1)
         engageVars.task = tasks[i]
 
         table.insert(points, engageVars)
@@ -123,6 +118,6 @@ function CAP.createAirSEAD(country, targetGroupName)
         }
     }
     CAP.listMission(groupName, controlledTask)
-    CAP.log("Mission is listed : SEAD")
+    CAP.log("Mission is listed : DEAD")
     return groupName
 end

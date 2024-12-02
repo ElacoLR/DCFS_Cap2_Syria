@@ -7,6 +7,7 @@ CAP.Template.Air.Turkey = {}
 CAP.Template.Air.Turkey.AWACS = {"Template_Turkey_AWACS_Incirlik"}
 CAP.Template.Air.Turkey.CAP = {"Template_Turkey_CAP_Incirlik", "Template_Turkey_CAP_Sanliurfa"}
 CAP.Template.Air.Turkey.SEAD = {"Template_Turkey_SEAD_Incirlik", "Template_Turkey_SEAD_Sanliurfa"}
+CAP.Template.Air.Turkey.DEAD = {"Template_Turkey_DEAD_Incirlik", "Template_Turkey_DEAD_Sanliurfa"}
 CAP.Template.Air.Turkey.STRIKE = {"Template_Turkey_STRIKE_Incirlik", "Template_Turkey_STRIKE_Sanliurfa"}
 
 CAP.Template.Air.Syria = {}
