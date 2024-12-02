@@ -44,3 +44,7 @@ function CAP.doReinforce()
     mist.scheduleFunction(CAP.groundReinforce, {'Syria'}, timer.getTime() + syrEco)
 end
 mist.scheduleFunction(CAP.doReinforce, {}, timer.getTime() + 10)
+
+-- TODO
+-- Decide how economy values effect ground reinforcement.
+-- ex.) Increase the interval of reinforcement / Limit the maximum amount of assault forces / ...
