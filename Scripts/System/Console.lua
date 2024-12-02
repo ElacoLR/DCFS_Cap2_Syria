@@ -30,4 +30,4 @@ for factoryName in pairs(CAP.Buildings.Factory) do
 end
 ]]
 
-CAP.msgToAll(mist.utils.tableShow(CAP.Package.Air), 30)
+CAP.msgToAll(mist.utils.tableShow(CAP.Players), 30)
