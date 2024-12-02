@@ -54,9 +54,14 @@ function CAP.createAirDEAD(country, targetGroupName)
 
     local anyFound = false
 
+    local firstTargetPoint
+
     for i = 1, #targetUnits do
         if targetUnits[i]:hasAttribute("SAM related") then
             targets[targetUnits[i]:getName()] = targetUnits[i]:getID()
+
+            firstTargetPoint = mist.utils.makeVec2(targetUnits[i]:getPosition().p)
+
             anyFound = true
         end
     end
@@ -90,8 +95,8 @@ function CAP.createAirDEAD(country, targetGroupName)
         engageVars.alt_type = AI.Task.AltitudeType.BARO
         engageVars.speed = mist.utils.knotsToMps(450)
         engageVars.speed_locked = true
-        engageVars.x = CAP.Waypoints[path[#path]].x + (i - 1)
-        engageVars.y = CAP.Waypoints[path[#path]].y + (i - 1)
+        engageVars.x = firstTargetPoint.x + (i - 1)
+        engageVars.y = firstTargetPoint.y + (i - 1)
         engageVars.task = tasks[i]
 
         table.insert(points, engageVars)

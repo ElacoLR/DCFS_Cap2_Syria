@@ -22,7 +22,7 @@ function CAP.spawnGround(groupType, country, zoneName, garrison)
 
     -- Set "groupname_type" flag value. ( 1 : Armored, 2 : Mechanized, 3 : Motorized, 4 : Short AA, 5 : Medium AA, 6 : Long AA, 7 : Infantry, 8 : EWR )
 
-    CAP.decEconomy(country, 999) -- Decrease economy value when spawning ground reinforcement.
+    -- CAP.decEconomy(country, 999) -- Decrease economy value when spawning ground reinforcement.
 
     local spawnedGroup = mist.teleportToPoint(vars)
 
