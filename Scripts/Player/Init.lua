@@ -5,3 +5,5 @@
 -- Need to refresh the table when player enter or player leave occurs.
 
 CAP.Players = {}
+
+CAP.Players.Radio = {}

@@ -8,7 +8,7 @@ function eH_playerEnterUnit:onEvent(e)
         if unit ~= nil then
             CAP.Players[unit:getPlayerName()] = unit
 
-            CAP.createPlayerRadio(unit:getGroup():getID())
+            CAP.createPlayerRadio(unit:getGroup():getID(), unit:getGroup())
         else
             CAP.log("playerEnterUnit failed.")
         end
@@ -23,6 +23,8 @@ function eH_playerLeaveUnit:onEvent(e)
         if unit ~= nil then
             if unit:getPlayerName() ~= nil then
                 CAP.Players[unit:getPlayerName()] = nil
+
+                CAP.removePlayerRadio(unit:getGroup():getID())
             end
         end
     end

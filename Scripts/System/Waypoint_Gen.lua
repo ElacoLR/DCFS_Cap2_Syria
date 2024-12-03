@@ -3,7 +3,7 @@
 
 CAP.Waypoints = {}
 
-CAP.distanceBetweenPoints = 38000 -- Adjust freely.
+CAP.distanceBetweenPoints = 38000 -- Adjust freely. / Default : 38000
 
 local firstPoint = mist.utils.makeVec2(CAP.getZone("WP_Gen_LT").point)
 local endPoint = mist.utils.makeVec2(CAP.getZone("WP_Gen_RB").point)

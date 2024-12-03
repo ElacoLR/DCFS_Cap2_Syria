@@ -20,6 +20,21 @@ function eH_removeEjectedPilots:onEvent(e)
     end
 end
 
+local eH_aiLand = {}
+
+function eH_aiLand:onEvent(e)
+    if e.id == 4 then
+        if e.initiator then
+            local p = e.initiator:getPlayerName()
+
+            if p == nil then
+                Object.destroy(e.initiator)
+            end
+        end
+    end
+end
+
 mist.scheduleFunction(CAP.cleanWorld, {}, timer.getTime() + 10, 600)
 
 world.addEventHandler(eH_removeEjectedPilots)
+world.addEventHandler(eH_aiLand)

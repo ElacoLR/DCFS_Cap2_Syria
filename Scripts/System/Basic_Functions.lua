@@ -104,6 +104,16 @@ function CAP.getKeysSortedByValue(tbl, sortFunction)
     return keys
 end
 
+function CAP.getRandomFromTable(tbl)
+    local keys = {}
+
+    for k in pairs(tbl) do
+        table.insert(keys, k)
+    end
+
+    return tbl[keys[math.random(1, #keys)]]
+end
+
 function CAP.getAliveUnit(unitName)
     if unitName == nil then
         return nil
