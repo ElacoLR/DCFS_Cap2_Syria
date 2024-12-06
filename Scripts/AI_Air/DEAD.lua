@@ -75,7 +75,7 @@ function CAP.createAirDEAD(country, targetGroupName)
                 id = 'AttackGroup',
                 params = {
                     groupId = Unit.getByName(tName):getGroup():getID(),
-                    weaponType = 4161536,
+                    weaponType = 2147485694,
                     groupAttack = true,
                     attackQtyLimit = true,
                     attackQty = 100,

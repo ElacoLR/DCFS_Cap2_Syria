@@ -48,7 +48,13 @@ function eH_engineStart:onEvent(e)
 
                 mist.scheduleFunction(Controller.setTask, {groupCon, CAP.missionList[groupName]}, timer.getTime() + 2)
                 mist.scheduleFunction(Controller.setOption, {groupCon, AI.Option.Air.id.ROE, AI.Option.Air.val.ROE.OPEN_FIRE}, timer.getTime() + 4)
+
+                for i = 1, #CAP.taskList[groupName] do
+                    mist.scheduleFunction(Controller.pushTask, {groupCon, CAP.taskList[groupName][i]}, timer.getTime() + 6)
+                end
+
                 CAP.missionList[groupName] = nil
+                CAP.taskList[groupName] = nil
             end
         end
     end

@@ -2,6 +2,8 @@ CAP.Air = {}
 
 CAP.missionList = {}
 
+CAP.taskList = {} -- Just for SEAD attack unit tasking. Test 241207
+
 function CAP.spawnAir(groupType, country)
     local vars = {}
 
@@ -25,4 +27,8 @@ end
 
 function CAP.listMission(groupName, mission)
     CAP.missionList[groupName] = mission
+end
+
+function CAP.listTask(groupName, taskTbl)
+    CAP.taskList[groupName] = taskTbl
 end

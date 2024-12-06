@@ -10,7 +10,7 @@ function eH_playerEnterUnit:onEvent(e)
             CAP.Players[unit:getPlayerName()] = unit
             CAP.Players.Units[unit:getName()] = unit:getPlayerName()
 
-            CAP.createPlayerRadio(unit:getGroup():getID(), unit:getGroup())
+            mist.scheduleFunction(CAP.createPlayerRadio, {unit:getGroup():getID(), unit:getGroup()}, timer.getTime() + 2)
         else
             CAP.log("playerEnterUnit failed.")
         end

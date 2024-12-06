@@ -71,20 +71,17 @@ function CAP.createAirSEAD(country, targetGroupName)
     if anyFound == true then
         for tName, tId in pairs(targets) do
             attackTask = {
-                id = 'AttackGroup',
+                id = 'AttackUnit',
                 params = {
-                    groupId = Unit.getByName(tName):getGroup():getID(),
+                    unitId = tId,
                     weaponType = 4161536,
                     expend = AI.Task.WeaponExpend.ONE,
                     attackQtyLimit = true,
-                    attackQty = 4,
-                    groupAttack = true,
+                    attackQty = 1,
                 }
             }
             CAP.log("assigned : " .. tName)
             table.insert(tasks, attackTask)
-
-            break
         end
     end
 
@@ -98,7 +95,7 @@ function CAP.createAirSEAD(country, targetGroupName)
     engageVars.speed_locked = true
     engageVars.x = CAP.Waypoints[path[#path]].x
     engageVars.y = CAP.Waypoints[path[#path]].y
-    engageVars.task = attackTask
+    -- engageVars.task = attackTask
 
     table.insert(points, engageVars)
 
@@ -123,6 +120,7 @@ function CAP.createAirSEAD(country, targetGroupName)
         }
     }
     CAP.listMission(groupName, controlledTask)
+    CAP.listTask(groupName, tasks)
     CAP.log("Mission is listed : SEAD")
     return groupName
 end
