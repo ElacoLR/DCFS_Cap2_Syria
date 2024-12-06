@@ -6,4 +6,6 @@
 
 CAP.Players = {}
 
+CAP.Players.Units = {} -- key : unit table, value : player name
+
 CAP.Players.Radio = {}

@@ -23,7 +23,7 @@ end
 local eH_aiLand = {}
 
 function eH_aiLand:onEvent(e)
-    if e.id == 4 then
+    if e.id == world.event.S_EVENT_LAND or e.id == 19 then
         if e.initiator then
             local p = e.initiator:getPlayerName()
 

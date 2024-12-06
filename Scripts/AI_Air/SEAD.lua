@@ -71,36 +71,36 @@ function CAP.createAirSEAD(country, targetGroupName)
     if anyFound == true then
         for tName, tId in pairs(targets) do
             attackTask = {
-                id = 'AttackUnit',
+                id = 'AttackGroup',
                 params = {
-                    unitId = tId,
+                    groupId = Unit.getByName(tName):getGroup():getID(),
                     weaponType = 4161536,
-                    expend = "Two",
+                    expend = AI.Task.WeaponExpend.ONE,
                     attackQtyLimit = true,
-                    attackQty = 1,
+                    attackQty = 4,
                     groupAttack = true,
                 }
             }
             CAP.log("assigned : " .. tName)
             table.insert(tasks, attackTask)
+
+            break
         end
     end
 
-    for i = 1, #tasks do
-        local engageVars = {}
+    local engageVars = {}
 
-        engageVars.type = AI.Task.WaypointType.TURNING_POINT
-        engageVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-        engageVars.alt = mist.utils.feetToMeters(30000)
-        engageVars.alt_type = AI.Task.AltitudeType.BARO
-        engageVars.speed = mist.utils.knotsToMps(450)
-        engageVars.speed_locked = true
-        engageVars.x = CAP.Waypoints[path[#path]].x
-        engageVars.y = CAP.Waypoints[path[#path]].y
-        engageVars.task = tasks[i]
+    engageVars.type = AI.Task.WaypointType.TURNING_POINT
+    engageVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
+    engageVars.alt = mist.utils.feetToMeters(30000)
+    engageVars.alt_type = AI.Task.AltitudeType.BARO
+    engageVars.speed = mist.utils.knotsToMps(450)
+    engageVars.speed_locked = true
+    engageVars.x = CAP.Waypoints[path[#path]].x
+    engageVars.y = CAP.Waypoints[path[#path]].y
+    engageVars.task = attackTask
 
-        table.insert(points, engageVars)
-    end
+    table.insert(points, engageVars)
 
     local controlledTask = {
         id = 'ControlledTask',
