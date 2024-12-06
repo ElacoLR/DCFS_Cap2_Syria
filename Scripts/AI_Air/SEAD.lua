@@ -87,17 +87,21 @@ function CAP.createAirSEAD(country, targetGroupName)
 
     local engageVars = {}
 
-    engageVars.type = AI.Task.WaypointType.TURNING_POINT
-    engageVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-    engageVars.alt = mist.utils.feetToMeters(30000)
-    engageVars.alt_type = AI.Task.AltitudeType.BARO
-    engageVars.speed = mist.utils.knotsToMps(450)
-    engageVars.speed_locked = true
-    engageVars.x = CAP.Waypoints[path[#path]].x
-    engageVars.y = CAP.Waypoints[path[#path]].y
-    -- engageVars.task = attackTask
+    for i = 1, #tasks do
+        engageVars = {}
 
-    table.insert(points, engageVars)
+        engageVars.type = AI.Task.WaypointType.TURNING_POINT
+        engageVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
+        engageVars.alt = mist.utils.feetToMeters(30000)
+        engageVars.alt_type = AI.Task.AltitudeType.BARO
+        engageVars.speed = mist.utils.knotsToMps(450)
+        engageVars.speed_locked = true
+        engageVars.x = CAP.Waypoints[path[#path]].x + (500 * (i - 1))
+        engageVars.y = CAP.Waypoints[path[#path]].y + (500 * (i - 1))
+        engageVars.task = tasks[i]
+
+        table.insert(points, engageVars)
+    end
 
     local controlledTask = {
         id = 'ControlledTask',
@@ -120,7 +124,6 @@ function CAP.createAirSEAD(country, targetGroupName)
         }
     }
     CAP.listMission(groupName, controlledTask)
-    CAP.listTask(groupName, tasks)
     CAP.log("Mission is listed : SEAD")
     return groupName
 end
