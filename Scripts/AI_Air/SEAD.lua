@@ -77,7 +77,7 @@ function CAP.createAirSEAD(country, targetGroupName)
                     weaponType = 4161536,
                     expend = AI.Task.WeaponExpend.ONE,
                     attackQtyLimit = true,
-                    attackQty = 1,
+                    attackQty = 10,
                 }
             }
             CAP.log("assigned : " .. tName)
@@ -85,24 +85,27 @@ function CAP.createAirSEAD(country, targetGroupName)
         end
     end
 
+    local comboTask = {
+        id = 'ComboTask',
+        params = {
+            tasks = tasks
+        }
+    }
+
     local engageVars = {}
 
-    for i = 1, #tasks do
-        engageVars = {}
+    engageVars.type = AI.Task.WaypointType.TURNING_POINT
+    engageVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
+    engageVars.alt = mist.utils.feetToMeters(30000)
+    engageVars.alt_type = AI.Task.AltitudeType.BARO
+    engageVars.speed = mist.utils.knotsToMps(450)
+    engageVars.speed_locked = true
+    engageVars.x = CAP.Waypoints[path[#path]].x
+    engageVars.y = CAP.Waypoints[path[#path]].y
+    engageVars.task = comboTask
 
-        engageVars.type = AI.Task.WaypointType.TURNING_POINT
-        engageVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-        engageVars.alt = mist.utils.feetToMeters(30000)
-        engageVars.alt_type = AI.Task.AltitudeType.BARO
-        engageVars.speed = mist.utils.knotsToMps(450)
-        engageVars.speed_locked = true
-        engageVars.x = CAP.Waypoints[path[#path]].x + (500 * (i - 1))
-        engageVars.y = CAP.Waypoints[path[#path]].y + (500 * (i - 1))
-        engageVars.task = tasks[i]
-
-        table.insert(points, engageVars)
-    end
-
+    table.insert(points, engageVars)
+    
     local controlledTask = {
         id = 'ControlledTask',
         params = {
