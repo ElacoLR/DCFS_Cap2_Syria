@@ -5,17 +5,19 @@ function CAP.executePackage(country) -- Only execute if no player assigned. If a
         if type(id) == 'number' then
             if #data.assignedPlayers == 0 then -- Check for any players.
                 local copiedData = mist.utils.deepCopy(data)
-                
+                local aiGroupName
+
                 if data.missionType == 'BARCAP' then
-                    local aiGroupName = CAP.createAirCAP(data.country, data.orbitPoints)
-                    copiedData["assignedGroupNames"][#copiedData["assignedGroupNames"] + 1] = aiGroupName
+                    aiGroupName = CAP.createAirCAP(data.country, data.orbitPoints)
                 elseif data.missionType == 'SEAD' then
-                    local aiGroupName = CAP.createAirSEAD(data.country, data.targetGroupName)
-                    copiedData["assignedGroupNames"][#copiedData["assignedGroupNames"] + 1] = aiGroupName
+                    aiGroupName = CAP.createAirSEAD(data.country, data.targetGroupName)
                 elseif data.missionType == 'DEAD' then
-                    local aiGroupName = CAP.createAirDEAD(data.country, data.targetGroupName)
-                    copiedData["assignedGroupNames"][#copiedData["assignedGroupNames"] + 1] = aiGroupName
+                    aiGroupName = CAP.createAirDEAD(data.country, data.targetGroupName)
+                elseif data.missionType == 'Strike' then
+                    aiGroupName = CAP.createAirStrike(data.country, data.targetGroupName)
                 end
+
+                copiedData["assignedGroupNames"][#copiedData["assignedGroupNames"] + 1] = aiGroupName
 
                 CAP.Package.Air.Active[country][id] = copiedData
                 CAP.Package.Air[country][id] = nil

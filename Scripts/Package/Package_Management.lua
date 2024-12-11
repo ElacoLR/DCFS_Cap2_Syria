@@ -36,25 +36,7 @@ function CAP.refreshPackage()
             CAP.Package.Ground[k] = nil
         end
     end
-    --[[
-    for id, data in pairs(CAP.Package.Air.Active['Turkey']) do
-        if #data.assignedGroupNames > 0 then
-            local aliveGroupCount = 0
 
-            for i = 1, #data.assignedGroupNames do
-                if CAP.getAliveGroup(data.assignedGroupNames[i]) then
-                    aliveGroupCount = aliveGroupCount + 1
-                end
-            end
-
-            if aliveGroupCount < 1 then
-                CAP.Package.Air.Active['Turkey'][id] = nil
-            end
-        else
-            CAP.Package.Air.Active['Turkey'][id] = nil
-        end
-    end
-    ]]
     for country, tbl in pairs(CAP.Package.Air.Active) do
         for id, data in pairs(tbl) do
             if #data.assignedGroupNames > 0 then
@@ -111,7 +93,7 @@ function CAP.searchAirPackage(searchType, country, searchFor)
         end
 
         if searchType == 'target' then
-            if searchFor == data.targetGroupName then
+            if searchFor == data.targetGroupName or searchFor == data.targetZoneName then
                 return true
             end
         end
@@ -125,7 +107,7 @@ function CAP.searchAirPackage(searchType, country, searchFor)
         end
 
         if searchType == 'target' then
-            if searchFor == data.targetGroupName then
+            if searchFor == data.targetGroupName or searchFor == data.targetZoneName then
                 return true
             end
         end
@@ -276,6 +258,56 @@ function CAP.createAirPackage(missionType, country)
                 CAP.Package.Air[country][packageVars.id] = packageVars
 
                 CAP.log("SEAD Package Created. Check : CAP.Package.Air")
+            end
+        end
+    elseif missionType == 'Strike' and CAP.searchAirPackage('count', country, missionType) < 1 then
+        local airbases = {}
+        local targetZones = {}
+
+        if country == 'Turkey' then
+            for zoneName, countryValue in pairs(CAP.Zones.Airbase) do
+                if countryValue == 3 then
+                    table.insert(airbases, zoneName)
+                end
+            end
+
+            local xAvg = 0
+            local yAvg = 0
+
+            for i = 1, #airbases do
+                local vec2Point = mist.utils.makeVec2(CAP.getZone(airbases[i]).point)
+
+                xAvg = xAvg + vec2Point.x
+                yAvg = yAvg + vec2Point.y
+            end
+
+            xAvg = xAvg / #airbases
+            yAvg = yAvg / #airbases
+
+            local avgPoint = {["x"] = xAvg, ["y"] = yAvg}
+
+            for zoneName, countryValue in pairs(CAP.Zones.Factory) do
+                if countryValue == 47 then
+                    local zoneDistance = CAP.getDistance(avgPoint, CAP.getZone(zoneName).point)
+
+                    targetZones[zoneName] = zoneDistance
+                end
+            end
+
+            local sortedZones = CAP.getKeysSortedByValue(targetZones, function(a, b) return a < b end)
+
+            local iteration = 0
+
+            if #sortedGroups > 0 then
+                repeat
+                    iteration = iteration + 1
+                until(CAP.searchAirPackage('target', country, sortedZones[iteration]) == false)
+
+                packageVars.targetZoneName = sortedZones[iteration]
+
+                CAP.Package.Air[country][packageVars.id] = packageVars
+
+                CAP.log("Strike Package created. Check : CAP.Package.Air")
             end
         end
     end
