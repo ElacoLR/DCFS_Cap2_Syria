@@ -29,8 +29,12 @@ function CAP.createAirStrike(country, targetZoneName)
                     if CAP.getFlag(enemySAM .. "_type") == 5 or CAP.getFlag(enemySAM .. "_type") == 6 then
                         local dist = CAP.getDistance(pathPoint, mist.utils.makeVec2(CAP.getAliveGroupLeader(enemySAM):getPosition().p))
 
-                        if dist < mist.utils.NMToMeters(100) then -- Adjust to S-300 Effective Range.
+                        if dist < mist.utils.NMToMeters(70) then -- Adjust to S-300 Effective Range.
                             return false
+                        end
+
+                        if dist < mist.utils.NMToMeters(40) then
+                            table.remove(path, i)
                         end
                     end
                 end
@@ -41,6 +45,10 @@ function CAP.createAirStrike(country, targetZoneName)
 
                         if dist < mist.utils.NMToMeters(100) then -- Adjust to Hawk Effective Range.
                             return false
+                        end
+
+                        if dist < mist.utils.NMToMeters(40) then
+                            table.remove(path, i)
                         end
                     end
                 end

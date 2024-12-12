@@ -59,6 +59,8 @@ function CAP.initGround()
     trigger.action.activateGroup(Group.getByName("Syr_lSAM_Jirah_1"))
     trigger.action.activateGroup(Group.getByName("Turk_lSAM_Sanliurfa_1"))
     trigger.action.activateGroup(Group.getByName("Syr_lSAM_Tabqa_1"))
+    trigger.action.activateGroup(Group.getByName("Syr_lSAM_Tiyas_1"))
+    trigger.action.activateGroup(Group.getByName("Syr_lSAM_Hama_1"))
     CAP.aliveGroundGroups.Garrison["Syr_lSAM_Duhur_1"] = 1
     CAP.setFlag("Syr_lSAM_Duhur_1" .. "_type", 6)
     CAP.aliveGroundGroups.Garrison["Syr_lSAM_Kuweires_1"] = 1
@@ -75,12 +77,18 @@ function CAP.initGround()
     CAP.setFlag("Turk_lSAM_Sanliurfa_1" .. "_type", 6)
     CAP.aliveGroundGroups.Garrison["Syr_lSAM_Tabqa_1"] = 1
     CAP.setFlag("Syr_lSAM_Tabqa_1" .. "_type", 6)
+    CAP.aliveGroundGroups.Garrison["Syr_lSAM_Tiyas_1"] = 1
+    CAP.setFlag("Syr_lSAM_Tiyas_1" .. "_type", 6)
+    CAP.aliveGroundGroups.Garrison["Syr_lSAM_Hama_1"] = 1
+    CAP.setFlag("Syr_lSAM_Hama_1" .. "_type", 6)
 
     CAP.DetectedTargets.Blue["Syr_lSAM_Duhur_1"] = 1
     CAP.DetectedTargets.Blue["Syr_lSAM_Kuweires_1"] = 1
     CAP.DetectedTargets.Blue["Syr_EWR_DU06"] = 1
     CAP.DetectedTargets.Blue["Syr_lSAM_Jirah_1"] = 1
     CAP.DetectedTargets.Blue["Syr_lSAM_Tabqa_1"] = 1
+    CAP.DetectedTargets.Blue["Syr_lSAM_Tiyas_1"] = 1
+    CAP.DetectedTargets.Blue["Syr_lSAM_Hama_1"] = 1
 
     CAP.log("initGround complete.")
 end

@@ -17,6 +17,11 @@ function CAP.executePackage(country) -- Only execute if no player assigned. If a
                     aiGroupName = CAP.createAirStrike(data.country, data.targetGroupName)
                 end
 
+                if aiGroupName == false then
+                    CAP.Package.Air[country][id] = nil
+                    return nil
+                end
+
                 copiedData["assignedGroupNames"][#copiedData["assignedGroupNames"] + 1] = aiGroupName
 
                 CAP.Package.Air.Active[country][id] = copiedData

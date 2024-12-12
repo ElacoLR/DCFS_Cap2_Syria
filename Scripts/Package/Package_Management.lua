@@ -286,7 +286,7 @@ function CAP.createAirPackage(missionType, country)
 
             local avgPoint = {["x"] = xAvg, ["y"] = yAvg}
 
-            for zoneName, countryValue in pairs(CAP.Zones.Factory) do
+            for zoneName, countryValue in pairs(CAP.Buildings.Factory) do
                 if countryValue == 47 then
                     local zoneDistance = CAP.getDistance(avgPoint, CAP.getZone(zoneName).point)
 
@@ -312,14 +312,19 @@ function CAP.createAirPackage(missionType, country)
         end
     end
 
-    CAP.createBARCAP()
-    CAP.createSEAD()
+    if missionType == 'BARCAP' then
+        CAP.createBARCAP()
+    elseif missionType == 'SEAD' then
+        CAP.createSEAD()
+    elseif missionType == 'Strike' then
+        CAP.createStrike()
+    end
 end
 
 function CAP.createBARCAP()
     local turkEco = CAP.Economy.Turkey
     local syrEco = CAP.Economy.Syria
-    local reinforceMultiplier = 10000
+    local reinforceMultiplier = 15000
 
     turkEco = mist.utils.round(reinforceMultiplier / turkEco)
     syrEco = mist.utils.round(reinforceMultiplier / syrEco)
@@ -332,7 +337,7 @@ mist.scheduleFunction(CAP.createBARCAP, {}, timer.getTime() + 60)
 function CAP.createSEAD()
     local turkEco = CAP.Economy.Turkey
     local syrEco = CAP.Economy.Syria
-    local reinforceMultiplier = 15000
+    local reinforceMultiplier = 20000
 
     turkEco = mist.utils.round(reinforceMultiplier / turkEco)
     syrEco = mist.utils.round(reinforceMultiplier / syrEco)
@@ -341,3 +346,16 @@ function CAP.createSEAD()
     mist.scheduleFunction(CAP.createAirPackage, {'SEAD', 'Syria'}, timer.getTime() + syrEco)
 end
 mist.scheduleFunction(CAP.createSEAD, {}, timer.getTime() + 120)
+
+function CAP.createStrike()
+    local turkEco = CAP.Economy.Turkey
+    local syrEco = CAP.Economy.Syria
+    local reinforceMultiplier = 21000
+
+    turkEco = mist.utils.round(reinforceMultiplier / turkEco)
+    syrEco = mist.utils.round(reinforceMultiplier / syrEco)
+
+    mist.scheduleFunction(CAP.createAirPackage, {'Strike', 'Turkey'}, timer.getTime() + turkEco)
+    mist.scheduleFunction(CAP.createAirPackage, {'Strike', 'Syria'}, timer.getTime() + syrEco)
+end
+mist.scheduleFunction(CAP.createStrike, {}, timer.getTime() + 180)

@@ -18,6 +18,7 @@ dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Ground\]] .. "Ground_Func
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Ground\]] .. "Init.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Ground\]] .. "Reinforcement.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Ground\]] .. "Command.lua")
+dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Ground\]] .. "StopEngageThenMove.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "Air_Functions.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "Init.lua")
 dofile (lfs.writedir() .. [[DCFS_Cap2_Syria\Scripts\AI_Air\]] .. "CAP.lua")

@@ -8,14 +8,14 @@ CAP.Template.Air.Turkey.AWACS = {"Template_Turkey_AWACS_Incirlik"}
 CAP.Template.Air.Turkey.CAP = {"Template_Turkey_CAP_Incirlik", "Template_Turkey_CAP_Sanliurfa"}
 CAP.Template.Air.Turkey.SEAD = {"Template_Turkey_SEAD_Incirlik", "Template_Turkey_SEAD_Sanliurfa"}
 CAP.Template.Air.Turkey.DEAD = {"Template_Turkey_DEAD_Incirlik", "Template_Turkey_DEAD_Sanliurfa"}
-CAP.Template.Air.Turkey.STRIKE = {"Template_Turkey_STRIKE_Incirlik", "Template_Turkey_STRIKE_Sanliurfa"}
+CAP.Template.Air.Turkey.Strike = {"Template_Turkey_Strike_Incirlik", "Template_Turkey_Strike_Sanliurfa"}
 
 CAP.Template.Air.Syria = {}
 
 CAP.Template.Air.Syria.AWACS = {}
-CAP.Template.Air.Syria.CAP = {"Template_Syria_CAP_Kuweires", "Template_Syria_CAP_Jirah", "Template_Syria_CAP_Duhur", "Template_Syria_CAP_Tabqa"}
-CAP.Template.Air.Syria.SEAD = {"Template_Syria_SEAD_Kuweires"}
-CAP.Template.Air.Syria.STRIKE = {"Template_Syria_STRIKE_Kuweires"}
+CAP.Template.Air.Syria.CAP = {"Template_Syria_CAP_Kuweires", "Template_Syria_CAP_Jirah", "Template_Syria_CAP_Duhur", "Template_Syria_CAP_Tabqa", "Template_Syria_CAP_Hama"}
+CAP.Template.Air.Syria.SEAD = {"Template_Syria_SEAD_Tiyas"}
+CAP.Template.Air.Syria.Strike = {"Template_Syria_Strike_Kuweires"}
 
 CAP.Template.Ground = {}
 
@@ -36,7 +36,8 @@ CAP.Zones = {}
 
 CAP.Zones.Airport = {["Airport_Minakh"] = 47, ["Airport_Hatay"] = 3, ["Airport_Gaziantep"] = 3, ["Airport_Aleppo"] = 47, ["Airport_Taftanaz"] = 47,}
 
-CAP.Zones.Airbase = {["Airbase_Incirlik"] = 3, ["Airbase_Sanliurfa"] = 3, ["Airbase_Kuweires"] = 47, ["Airbase_Duhur"] = 47, ["Airbase_Jirah"] = 47, ["Airbase_Tabqa"] = 47}
+CAP.Zones.Airbase = {["Airbase_Incirlik"] = 3, ["Airbase_Sanliurfa"] = 3, ["Airbase_Kuweires"] = 47, ["Airbase_Duhur"] = 47, ["Airbase_Jirah"] = 47, ["Airbase_Tabqa"] = 47,
+    ["Airbase_Tiyas"] = 47, ["Airbase_Hama"] = 47}
 
 CAP.Zones.MilitaryBase = {["MilitaryBase_BA53"] = 3, ["MilitaryBase_BA89"] = 3, ["MilitaryBase_DA88"] = 3, ["MilitaryBase_CA20"] = 47, ["MilitaryBase_CA63"] = 47, 
     ["MilitaryBase_DA40"] = 47,}
