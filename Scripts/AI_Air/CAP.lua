@@ -16,13 +16,15 @@ function CAP.createAirCAP(country, orbitPoints)
 
     local engageTask = {}
 
+    local pathAlt = math.random(25, 30) * 1000
+
     if path then
         for i = 1, #path - 1 do
             local pointVars = {}
 
             pointVars.type = AI.Task.WaypointType.TURNING_POINT
             pointVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-            pointVars.alt = mist.utils.feetToMeters(25000)
+            pointVars.alt = mist.utils.feetToMeters(pathAlt)
             pointVars.alt_type = AI.Task.AltitudeType.BARO
             pointVars.speed = mist.utils.knotsToMps(450)
             pointVars.speed_locked = true
@@ -56,7 +58,7 @@ function CAP.createAirCAP(country, orbitPoints)
             point = mist.utils.makeVec2(CAP.getZone(orbitPoints[1]).point),
             point2 = mist.utils.makeVec2(CAP.getZone(orbitPoints[2]).point),
             speed = mist.utils.knotsToMps(450),
-            altitude = mist.utils.feetToMeters(25000),
+            altitude = mist.utils.feetToMeters(pathAlt),
         }
     }
 
@@ -64,7 +66,7 @@ function CAP.createAirCAP(country, orbitPoints)
 
     orbitVars.type = AI.Task.WaypointType.TURNING_POINT
     orbitVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-    orbitVars.alt = mist.utils.feetToMeters(25000)
+    orbitVars.alt = mist.utils.feetToMeters(pathAlt)
     orbitVars.alt_type = AI.Task.AltitudeType.BARO
     orbitVars.speed = mist.utils.knotsToMps(450)
     orbitVars.speed_locked = true

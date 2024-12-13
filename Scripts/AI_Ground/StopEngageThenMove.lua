@@ -23,6 +23,14 @@ for groupName, _ in pairs(CAP.aliveGroundGroups.Assault) do
         if #targets > 0 then
             gCon:pushTask(taskHold)
             CAP.StopEngageThenMove.detected[groupName] = 1
+
+            -- Determine if XCAS is needed.
+
+            local ourUnits = Group.getByName(groupName):getUnits()
+
+            if #ourUnits < #targets then
+                -- Request XCAS
+            end
         else
             CAP.StopEngageThenMove.detected[groupName] = nil
         end

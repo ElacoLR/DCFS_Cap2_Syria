@@ -1,0 +1,5 @@
+-- 1. Generate XCAS package assigned to any assault ground package that does not have XCAS assigned yet.
+-- 2. Generate waypoints to the closest vertex of assault ground package.
+-- 3. Refresh the waypoint to be the nearest vertex until end.
+-- 4. Write a XCAS table : Key = assault ground name / Value = XCAS group name
+-- 5. Request XCAS via the table.

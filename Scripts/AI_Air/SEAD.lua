@@ -18,6 +18,8 @@ function CAP.createAirSEAD(country, targetGroupName)
     local targetGroup = CAP.getAliveGroup(targetGroupName)
     local targetGroupLeader = CAP.getAliveGroupLeader(targetGroupName)
 
+    local pathAlt = math.random(31, 34) * 1000
+
     if path then
         for i = #path, 1, -1 do -- Check for distance between point and target SAM. (40nm)
             local pathPoint = {["x"] = CAP.Waypoints[path[i]].x, ["y"] = CAP.Waypoints[path[i]].y}
@@ -32,7 +34,7 @@ function CAP.createAirSEAD(country, targetGroupName)
 
             pointVars.type = AI.Task.WaypointType.TURNING_POINT
             pointVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-            pointVars.alt = mist.utils.feetToMeters(30000)
+            pointVars.alt = mist.utils.feetToMeters(pathAlt)
             pointVars.alt_type = AI.Task.AltitudeType.BARO
             pointVars.speed = mist.utils.knotsToMps(450)
             pointVars.speed_locked = true
@@ -96,7 +98,7 @@ function CAP.createAirSEAD(country, targetGroupName)
 
     engageVars.type = AI.Task.WaypointType.TURNING_POINT
     engageVars.action = AI.Task.TurnMethod.FLY_OVER_POINT
-    engageVars.alt = mist.utils.feetToMeters(30000)
+    engageVars.alt = mist.utils.feetToMeters(pathAlt)
     engageVars.alt_type = AI.Task.AltitudeType.BARO
     engageVars.speed = mist.utils.knotsToMps(450)
     engageVars.speed_locked = true
